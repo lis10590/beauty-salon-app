@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 f5ee254fd962c817cc7237eeaec1dd7298bb3ed4 Lis Setgasy <lisset10590@gmail.com> 1645081398 +0200	commit (initial): Initialize project using Create React App
+f5ee254fd962c817cc7237eeaec1dd7298bb3ed4 f5ee254fd962c817cc7237eeaec1dd7298bb3ed4 Lis Setgasy <lisset10590@gmail.com> 1645084838 +0200	Branch: renamed refs/heads/master to refs/heads/main
+f5ee254fd962c817cc7237eeaec1dd7298bb3ed4 81a4fb728955c692ed5288ad1f81b562479a2801 Lis Setgasy <lisset10590@gmail.com> 1645311814 +0200	commit: added full calendar component
+81a4fb728955c692ed5288ad1f81b562479a2801 5db1503dc9abd66e80361460ecee8f05e0ad1da7 Lis Setgasy <lisset10590@gmail.com> 1645430014 +0200	commit: added login initial template
+5db1503dc9abd66e80361460ecee8f05e0ad1da7 5cf4e41938ebe36b0c33d85242937c5ba4007930 Lis Setgasy <lisset10590@gmail.com> 1645915125 +0200	commit: Basic FE of login and register pages with a basic yet unfunctional navbar
+5cf4e41938ebe36b0c33d85242937c5ba4007930 d0a885d1397ec68f22e4c24be17b2a3f9b658c2f Lis Setgasy <lisset10590@gmail.com> 1646000099 +0200	commit: tried to add reg validation
+d0a885d1397ec68f22e4c24be17b2a3f9b658c2f a87fe3ee890dda6ff3bb51d254d9f985e03a66ec Lis Setgasy <lisset10590@gmail.com> 1646000304 +0200	commit: added server
