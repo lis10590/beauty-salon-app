@@ -1,17 +1,17 @@
 import request from "superagent";
 
-const apiUrl = "localhost:3001";
+const apiUrl = "http://localhost:3001";
 
-export const postRegister = (user) =>
+export const postRegister = (user) => {
   request
     .post(`${apiUrl}/api/auth/register`)
-    .send(user)
+    .send((user) => console.log(user))
     .then((res) => res.body)
-    .catch(err);
-
+    .catch(Error);
+};
 export const postLogin = (user) =>
   request
     .post(`${apiUrl}/api/auth/login`)
     .send(user)
     .then((res) => res.body)
-    .catch(err);
+    .catch(Error);
