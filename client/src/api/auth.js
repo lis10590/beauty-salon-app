@@ -5,10 +5,11 @@ const apiUrl = "http://localhost:3001";
 export const postRegister = (user) => {
   request
     .post(`${apiUrl}/api/auth/register`)
-    .send((user) => console.log(user))
+    .send(user)
     .then((res) => res.body)
     .catch(Error);
 };
+
 export const postLogin = (user) =>
   request
     .post(`${apiUrl}/api/auth/login`)
