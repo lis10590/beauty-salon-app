@@ -205,9 +205,9 @@ const Register = (props) => {
             <p className="help is-danger">Password does not match!</p>
           )}
         </Field>
-
-        <Field renderas={Link}>Already Registered? Click Here</Field>
-
+        <Field>
+          Already Registered? Click <a href="/login">Here</a>
+        </Field>
         <Field>
           <Control>
             <Button
