@@ -13,7 +13,7 @@ router.get("/getUser", (req, res) => {
       res.status(400).send({ message: "User access is not possible", err });
     }
     if (!user[0]) {
-      res.status(400).send({ message: "Username isn't exists" });
+      res.status(400).send({ message: "Username doesn't exist" });
     }
     console.log(user);
 
