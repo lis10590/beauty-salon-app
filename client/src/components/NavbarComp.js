@@ -6,11 +6,30 @@ import logo from "../assets/nail-logo.png";
 const NavbarComp = () => {
   return (
     <Navbar>
-      {/* <Navbar.Item>Home</Navbar.Item> */}
-
-      <Navbar.Brand to="/" component={Link}>
+      {/* <Navbar.Brand to="/" component={Link}>
         <img className="img-logo" src={logo}></img>
+      </Navbar.Brand> */}
+      <Navbar.Brand>
+        <img className="img-logo" src={logo}></img>
+        <Navbar.Item to="/home" component={Link}>
+          Home
+        </Navbar.Item>
+        <Navbar.Item to="/myaccount" component={Link}>
+          My Account
+        </Navbar.Item>
+        <Navbar.Item to="/clients" component={Link}>
+          Clients
+        </Navbar.Item>
+        <Navbar.Item to="/products" component={Link}>
+          Products
+        </Navbar.Item>
+        <Navbar.Item to="/treatments" component={Link}>
+          Treatments
+        </Navbar.Item>
       </Navbar.Brand>
+      {/* <Navbar.Start>
+        
+      </Navbar.Start> */}
 
       <Navbar.End>
         <Navbar.Item to="/register" component={Link}>

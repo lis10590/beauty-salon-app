@@ -1,5 +1,5 @@
 import "bulma/css/bulma.min.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,7 @@ import "../styles/Login.scss";
 import { postLogin } from "../api/auth";
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -46,6 +47,8 @@ const Login = () => {
     };
 
     postLogin(user);
+
+    navigate("../home");
 
     resetEmailInput();
     resetPasswordInput();
