@@ -6,6 +6,7 @@ import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Label, Box, Button } from "react-bulma-companion";
 import Input from "react-bulma-companion/lib/Input";
 import "../styles/Register.scss";
+import { postRegister } from "../api/auth";
 
 const Register = (props) => {
   const {
@@ -84,6 +85,15 @@ const Register = (props) => {
       return;
     }
 
+    const user = {
+      fname: enteredFname,
+      lname: enteredLname,
+      email: enteredEmail,
+      password: enteredPassword,
+    };
+
+    postRegister(user);
+
     resetFnameInput();
     resetLnameInput();
     resetEmailInput();
@@ -91,7 +101,7 @@ const Register = (props) => {
     resetPassword2Input();
   };
   return (
-    <form onSubmit={formSubmissionHandler}>
+    <form>
       <Box className="register">
         <Field>
           <Label size="small">First Name</Label>
@@ -195,12 +205,17 @@ const Register = (props) => {
             <p className="help is-danger">Password does not match!</p>
           )}
         </Field>
-
-        <Field renderas={Link}>Already Registered? Click Here</Field>
-
+        <Field>
+          Already Registered? Click <a href="/login">Here</a>
+        </Field>
         <Field>
           <Control>
-            <Button className="button is-primary">Register</Button>
+            <Button
+              className="button is-primary"
+              onClick={formSubmissionHandler}
+            >
+              Register
+            </Button>
           </Control>
         </Field>
       </Box>
