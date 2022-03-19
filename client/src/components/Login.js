@@ -1,20 +1,14 @@
 import "bulma/css/bulma.min.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import InputComponent from "./InputComponent";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
-import {
-  Control,
-  Field,
-  Input,
-  Label,
-  Box,
-  Button,
-} from "react-bulma-companion";
+import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../styles/Login.scss";
 import { postLogin } from "../api/auth";
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -47,45 +41,47 @@ const Login = () => {
 
     postLogin(user);
 
+    navigate("../home");
+
     resetEmailInput();
     resetPasswordInput();
   };
   return (
     <Box className="login">
       <Field>
-        <Label size="small">Email</Label>
-        <Control className="has-icons-left">
-          <Input
-            name="email"
-            type="text"
-            size="small"
-            onChange={emailChangeHandler}
-            onBlur={emailBlurHandler}
-            value={enteredEmail}
-          />
-          <span className="icon is-small is-left">
-            <FontAwesomeIcon icon={faEnvelope} />
-          </span>
-        </Control>
+        <InputComponent
+          labelSize="small"
+          labelContent="Email"
+          controlClassName="has-icons-left"
+          inputName="email"
+          inputType="text"
+          inputSize="small"
+          inputOnChange={emailChangeHandler}
+          inputOnBlur={emailBlurHandler}
+          inputValue={enteredEmail}
+          spanClassName="icon is-small is-left"
+          icon={faEnvelope}
+        />
+
         {emailInputHasError && (
           <p className="help is-danger">Please enter a valid Email!</p>
         )}
       </Field>
       <Field>
-        <Label size="small">Password</Label>
-        <Control className="has-icons-left">
-          <Input
-            name="password"
-            type="password"
-            size="small"
-            onChange={passwordChangeHandler}
-            onBlur={passwordBlurHandler}
-            value={enteredPassword}
-          />
-          <span className="icon is-small is-left">
-            <FontAwesomeIcon icon={faLock} />
-          </span>
-        </Control>
+        <InputComponent
+          labelSize="small"
+          labelContent="Password"
+          controlClassName="has-icons-left"
+          inputName="password"
+          inputType="password"
+          inputSize="small"
+          inputOnChange={passwordChangeHandler}
+          inputOnBlur={passwordBlurHandler}
+          inputValue={enteredPassword}
+          spanClassName="icon is-small is-left"
+          icon={faLock}
+        />
+
         {passwordInputHasError && (
           <p className="help is-danger">
             Password must have minimum 6 characters!
