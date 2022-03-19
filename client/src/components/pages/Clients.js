@@ -17,7 +17,7 @@ const Clients = () => {
             to="/"
             className="is-justify-content-space-evenly"
           >
-            {client}
+            {client.fullName}
           </Panel.Block>
         );
       })}

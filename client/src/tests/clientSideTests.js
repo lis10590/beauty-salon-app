@@ -1,4 +1,47 @@
-const clients = ["Dana Levi", "Shir Falcon", "Yael Israeli", "Sivan Amir"];
+const clients = [
+  {
+    id: "1",
+    fullName: "Dana Levi",
+    phoneNumber: "0527654384",
+    treatmentHistory: {
+      treatmentName: ["Gel Nail Polish"],
+      date: [new Date("2022-02-16")],
+    },
+    productsPurchased: [],
+  },
+  {
+    id: "2",
+    fullName: "Shir Falcon",
+    phoneNumber: "0527675385",
+    treatmentHistory: {
+      treatmentName: ["Gel Nail Polish"],
+      date: [new Date("2022-02-15")],
+    },
+    productsPurchased: [],
+  },
+
+  {
+    id: "3",
+    fullName: "Yael Israeli",
+    phoneNumber: "0527675388",
+    treatmentHistory: {
+      treatmentName: ["Pedicure"],
+      date: [new Date("2022-01-15")],
+    },
+    productsPurchased: ["Gold Cream"],
+  },
+
+  {
+    id: "4",
+    fullName: "Sivan Amir",
+    phoneNumber: "0527675388",
+    treatmentHistory: {
+      treatmentName: ["Pedicure"],
+      date: [new Date("2022-01-15")],
+    },
+    productsPurchased: ["Gold Cream"],
+  },
+];
 
 export const accountDetails = {
   firstName: "Lis",
