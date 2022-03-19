@@ -1,14 +1,13 @@
-import "bulma/css/bulma.min.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import InputComponent from "./InputComponent";
 import useInput from "../hooks/useInput";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Control, Field, Label, Box, Button } from "react-bulma-companion";
-import Input from "react-bulma-companion/lib/Input";
+import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../styles/Register.scss";
 import { postRegister } from "../api/auth";
 
-const Register = (props) => {
+const Register = () => {
+  const navigate = useNavigate();
   const {
     value: enteredFname,
     isValid: enteredFnameIsValid,
@@ -104,77 +103,73 @@ const Register = (props) => {
     <form>
       <Box className="register">
         <Field>
-          <Label size="small">First Name</Label>
-          <Control className="has-icons-left">
-            <Input
-              onChange={fnameChangeHandler}
-              value={enteredFname}
-              name="firstName"
-              type="text"
-              size="small"
-              onBlur={fnameBlurHandler}
-            />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon={faUser} />
-            </span>
-          </Control>
+          <InputComponent
+            labelSize="small"
+            labelContent="First Name"
+            controlClassName="has-icons-left"
+            inputName="firstName"
+            inputType="text"
+            inputSize="small"
+            inputOnChange={fnameChangeHandler}
+            inputOnBlur={fnameBlurHandler}
+            inputValue={enteredFname}
+            spanClassName="icon is-small is-left"
+            icon={faUser}
+          />
           {fnameInputHasError && (
             <p className="help is-danger">First Name is required!</p>
           )}
         </Field>
         <Field>
-          <Label size="small">Last Name</Label>
-          <Control className="has-icons-left">
-            <Input
-              name="lastName"
-              type="text"
-              size="small"
-              onChange={lnameChangeHandler}
-              value={enteredLname}
-              onBlur={lnameBlurHandler}
-            />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon={faUser} />
-            </span>
-          </Control>
+          <InputComponent
+            labelSize="small"
+            labelContent="Last Name"
+            controlClassName="has-icons-left"
+            inputName="lastName"
+            inputType="text"
+            inputSize="small"
+            inputOnChange={lnameChangeHandler}
+            inputOnBlur={lnameBlurHandler}
+            inputValue={enteredLname}
+            spanClassName="icon is-small is-left"
+            icon={faUser}
+          />
           {lnameInputHasError && (
             <p className="help is-danger">Last Name is required!</p>
           )}
         </Field>
         <Field>
-          <Label size="small">Email</Label>
-          <Control className="has-icons-left">
-            <Input
-              name="email"
-              type="text"
-              size="small"
-              onChange={emailChangeHandler}
-              onBlur={emailBlurHandler}
-              value={enteredEmail}
-            />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon={faEnvelope} />
-            </span>
-          </Control>
+          <InputComponent
+            labelSize="small"
+            labelContent="Email"
+            controlClassName="has-icons-left"
+            inputName="email"
+            inputType="text"
+            inputSize="small"
+            inputOnChange={emailChangeHandler}
+            inputOnBlur={emailBlurHandler}
+            inputValue={enteredEmail}
+            spanClassName="icon is-small is-left"
+            icon={faEnvelope}
+          />
           {emailInputHasError && (
             <p className="help is-danger">Please enter a valid Email!</p>
           )}
         </Field>
         <Field>
-          <Label size="small">Password</Label>
-          <Control className="has-icons-left">
-            <Input
-              name="password"
-              type="password"
-              size="small"
-              onChange={passwordChangeHandler}
-              onBlur={passwordBlurHandler}
-              value={enteredPassword}
-            />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon={faLock} />
-            </span>
-          </Control>
+          <InputComponent
+            labelSize="small"
+            labelContent="Password"
+            controlClassName="has-icons-left"
+            inputName="password"
+            inputType="password"
+            inputSize="small"
+            inputOnChange={passwordChangeHandler}
+            inputOnBlur={passwordBlurHandler}
+            inputValue={enteredPassword}
+            spanClassName="icon is-small is-left"
+            icon={faLock}
+          />
           {passwordInputHasError && (
             <p className="help is-danger">
               Password must have minimum 6 characters!
@@ -182,20 +177,20 @@ const Register = (props) => {
           )}
         </Field>
         <Field>
-          <Label size="small">Confirm Password</Label>
-          <Control className="has-icons-left">
-            <Input
-              name="conpass"
-              type="password"
-              size="small"
-              onChange={password2ChangeHandler}
-              onBlur={password2BlurHandler}
-              value={enteredPassword2}
-            />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon={faLock} />
-            </span>
-          </Control>
+          <InputComponent
+            labelSize="small"
+            labelContent="Confirm Password"
+            controlClassName="has-icons-left"
+            inputName="confirmPassword"
+            inputType="password"
+            inputSize="small"
+            inputOnChange={password2ChangeHandler}
+            inputOnBlur={password2BlurHandler}
+            inputValue={enteredPassword2}
+            spanClassName="icon is-small is-left"
+            icon={faLock}
+          />
+
           {password2InputHasError && (
             <p className="help is-danger">
               Password must have minimum 6 characters!
@@ -206,7 +201,7 @@ const Register = (props) => {
           )}
         </Field>
         <Field>
-          Already Registered? Click <a href="/login">Here</a>
+          Already Registered? Click <a href={() => navigate("/login")}>Here</a>
         </Field>
         <Field>
           <Control>
