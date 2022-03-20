@@ -5,6 +5,7 @@ import clients from "../../tests/clientSideTests";
 import AddAndDelete from "../AddAndDelete";
 import Card from "../Card";
 import AddClient from "../AddClient";
+import DeleteClient from "../DeleteClient";
 const Clients = () => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -44,6 +45,7 @@ const Clients = () => {
           clientId = client.id;
           return (
             <Panel.Block
+              key={client.id}
               component={Link}
               to={`/clients/${clientId}`}
               className="is-justify-content-space-evenly"
@@ -57,6 +59,11 @@ const Clients = () => {
         isOpen={addModalOpen}
         onClose={closeAddModalHandler}
         onClientAdded={(event) => onClientAddedHandler(event)}
+      />
+      <DeleteClient
+        isOpen={deleteModalOpen}
+        onClose={closeDeleteModalHandler}
+        onClientDeleted={(event) => onClientDeletedHandler(event)}
       />
     </div>
   );

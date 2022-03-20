@@ -1,26 +1,64 @@
 import { useState } from "react";
-import { Input, Modal, Label, Button } from "react-bulma-companion";
+import InputComponent from "./InputComponent";
+import styles from "../styles/mystyles.scss";
+import { Modal, Button, Delete } from "react-bulma-companion";
+import { faUser, faMobilePhone } from "@fortawesome/free-solid-svg-icons";
 
 const AddClient = (props) => {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  const fullNameChangeHandler = (event) => {
+    setFullName(event.target.value);
+  };
+
+  const phoneNumberChangeHandler = (event) => {
+    setPhoneNumber(event.target.value);
+  };
+
   return (
     <Modal active={props.isOpen}>
-      <Modal.Card>
-        <Modal.CardHead>
-          <Modal.CardTitle>Add Client</Modal.CardTitle>
-          <Button
-            className="delete"
-            aria-label="close"
-            onClick={props.onClose}
-          ></Button>
-        </Modal.CardHead>
-        <Modal.CardBody>
-          <Label>Full Name</Label>
-          <Input name="fullName" type="text" size="small"></Input>
-        </Modal.CardBody>
-      </Modal.Card>
+      <Modal.Background>
+        <Modal.Card className="mt-6">
+          <Modal.CardHead className="modal-card-head">
+            <Modal.CardTitle>Add Client</Modal.CardTitle>
+            <Delete className="delete" onClick={props.onClose}></Delete>
+          </Modal.CardHead>
+          <Modal.CardBody>
+            <InputComponent
+              labelSize="small"
+              labelContent="Full Name"
+              controlClassName="has-icons-left"
+              inputName="fullName"
+              inputType="text"
+              inputSize="small"
+              inputOnChange={fullNameChangeHandler}
+              inputValue={fullName}
+              spanClassName="icon is-small is-left"
+              icon={faUser}
+            />
+            <InputComponent
+              labelSize="small"
+              labelContent="Phone Number"
+              controlClassName="has-icons-left"
+              inputName="phoneNumber"
+              inputType="tel"
+              inputSize="small"
+              inputOnChange={phoneNumberChangeHandler}
+              inputValue={phoneNumber}
+              spanClassName="icon is-small is-left"
+              icon={faMobilePhone}
+            />
+
+            <Button
+              disabled={!fullName || !phoneNumber ? true : false}
+              className="button is-danger is-small mt-3"
+            >
+              Save
+            </Button>
+          </Modal.CardBody>
+        </Modal.Card>
+      </Modal.Background>
     </Modal>
   );
 };
