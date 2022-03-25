@@ -87,6 +87,7 @@
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useState, useRef } from "react";
 import { Button } from "react-bulma-companion";
@@ -122,21 +123,23 @@ const Calendar = () => {
         <Button className="button is-primary">Add New Client</Button>
       </div>
       <div
-        style={{
-          position: "relative",
-          zIndex: 0,
-          height: "500px",
-          width: "500px",
-          left: "450px",
-          display: "flex",
-        }}
+        style={
+          {
+            // position: "relative",
+            // zIndex: 0,
+            // height: "500px",
+            // width: "500px",
+            // left: "450px",
+            // display: "flex",
+          }
+        }
       >
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
+          initialView="timeGridMonth"
           ref={calendarRef}
-          height="100%"
-          windowResize="true"
+          // height="100%"
+          // windowResize="true"
         />
       </div>
       <AddEvent

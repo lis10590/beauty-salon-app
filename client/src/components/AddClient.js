@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addClient } from "../store/clients";
 import InputComponent from "./InputComponent";
 import styles from "../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
@@ -14,6 +16,16 @@ const AddClient = (props) => {
 
   const phoneNumberChangeHandler = (event) => {
     setPhoneNumber(event.target.value);
+  };
+  const dispatch = useDispatch();
+
+  const addNewClientHandler = () => {
+    if (fullName && phoneNumber) {
+      dispatch(addClient(fullName, phoneNumber));
+      setFullName("");
+      setPhoneNumber("");
+      props.onClose();
+    }
   };
 
   return (
@@ -53,6 +65,7 @@ const AddClient = (props) => {
             <Button
               disabled={!fullName || !phoneNumber ? true : false}
               className="button is-danger is-small mt-3"
+              onClick={addNewClientHandler}
             >
               Save
             </Button>

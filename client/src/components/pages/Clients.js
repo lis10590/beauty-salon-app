@@ -1,70 +1,55 @@
-import { useState } from "react";
-import { Panel } from "react-bulma-companion";
+import { useSelector, useDispatch } from "react-redux";
+import { modalActions } from "../../store/modal";
+import { selectAllClients } from "../../store/clients";
+import { Panel, Control } from "react-bulma-companion";
 import { Link, useParams } from "react-router-dom";
-import clients from "../../tests/clientSideTests";
 import AddAndDelete from "../AddAndDelete";
 import Card from "../Card";
 import AddClient from "../AddClient";
 import DeleteClient from "../DeleteClient";
+import DeleteButton from "../DeleteButton";
+
 const Clients = () => {
-  const [addModalOpen, setAddModalOpen] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const addModal = useSelector((state) => state.modal.addModalOpen);
+
+  const clients = useSelector(selectAllClients);
   let { clientId } = useParams();
 
   const closeAddModalHandler = () => {
-    setAddModalOpen(false);
+    dispatch(modalActions.addModalClose());
   };
 
   const openAddModalHandler = () => {
-    setAddModalOpen(true);
+    dispatch(modalActions.addModalOpen());
   };
-
-  const closeDeleteModalHandler = () => {
-    setDeleteModalOpen(false);
-  };
-
-  const openDeleteModalHandler = () => {
-    setDeleteModalOpen(true);
-  };
-
-  const onClientAddedHandler = (event) => {};
-
-  const onClientDeletedHandler = () => {};
 
   return (
     <div>
       <Card>
         <Panel.Heading>
           Clients
-          <AddAndDelete
-            onAddButton={openAddModalHandler}
-            onDeleteButton={openDeleteModalHandler}
-          />
+          <AddAndDelete onAddButton={openAddModalHandler} />
         </Panel.Heading>
         {clients.map((client) => {
           clientId = client.id;
           return (
-            <Panel.Block
-              key={client.id}
-              component={Link}
-              to={`/clients/${clientId}`}
-              className="is-justify-content-space-evenly"
-            >
-              {client.fullName}
+            <Panel.Block>
+              <Control
+                key={client.id}
+                component={Link}
+                to={`/clients/${clientId}`}
+                className="is-justify-content-space-between"
+              >
+                {client.fullName}
+              </Control>
+              <DeleteButton />
             </Panel.Block>
           );
         })}
       </Card>
-      <AddClient
-        isOpen={addModalOpen}
-        onClose={closeAddModalHandler}
-        onClientAdded={(event) => onClientAddedHandler(event)}
-      />
-      <DeleteClient
-        isOpen={deleteModalOpen}
-        onClose={closeDeleteModalHandler}
-        onClientDeleted={(event) => onClientDeletedHandler(event)}
-      />
+      <AddClient isOpen={addModal} onClose={closeAddModalHandler} />
     </div>
   );
 };

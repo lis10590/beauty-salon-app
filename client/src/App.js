@@ -1,8 +1,8 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
 import MyAccount from "./components/pages/MyAccount";
 import NavbarComp from "./components/NavbarComp";
 import Welcome from "./components/pages/Welcome";

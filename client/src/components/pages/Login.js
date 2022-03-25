@@ -1,11 +1,11 @@
 import "bulma/css/bulma.min.css";
 import { useNavigate } from "react-router-dom";
-import useInput from "../hooks/useInput";
-import InputComponent from "./InputComponent";
+import useInput from "../../hooks/useInput";
+import InputComponent from "../InputComponent";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
-import "../styles/Login.scss";
-import { postLogin } from "../api/auth";
+import "../../styles/Login.scss";
+import { postLogin } from "../../api/auth";
 
 const Login = () => {
   const navigate = useNavigate();

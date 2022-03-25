@@ -5,3 +5,13 @@
 .modal-card-body {
   height: 20rem;
 }
+
+.delete-button:hover {
+  color: gray;
+  cursor: pointer;
+}
+
+.card-panel {
+  display: flex;
+  flex-direction: column;
+}

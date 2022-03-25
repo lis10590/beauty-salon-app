@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import InputComponent from "./InputComponent";
-import useInput from "../hooks/useInput";
+import InputComponent from "../InputComponent";
+import useInput from "../../hooks/useInput";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
-import "../styles/Register.scss";
-import { postRegister } from "../api/auth";
+import "../../styles/Register.scss";
+import { postRegister } from "../../api/auth";
 
 const Register = () => {
   const navigate = useNavigate();

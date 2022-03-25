@@ -1,12 +1,11 @@
-import { Columns, Column, Panel } from "react-bulma-companion";
+import { Column, Panel } from "react-bulma-companion";
+import mystyles from "../styles/mystyles.scss";
 
 const Card = (props) => {
   return (
-    <Columns className="has-text-centered" mobile centered>
-      <Column size="half">
-        <Panel>{props.children}</Panel>
-      </Column>
-    </Columns>
+    <Column size="half" offset="one-quarter" className="has-text-centered">
+      <Panel className="card-panel">{props.children}</Panel>
+    </Column>
   );
 };
 
