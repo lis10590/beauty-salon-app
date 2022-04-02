@@ -1,13 +1,16 @@
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import InputComponent from "../InputComponent";
 import useInput from "../../hooks/useInput";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../../styles/Register.scss";
-import { postRegister } from "../../api/auth";
+import { register } from "../../store/auth";
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const {
     value: enteredFname,
     isValid: enteredFnameIsValid,
@@ -90,8 +93,7 @@ const Register = () => {
       email: enteredEmail,
       password: enteredPassword,
     };
-
-    postRegister(user);
+    dispatch(register(user));
 
     resetFnameInput();
     resetLnameInput();

@@ -1,5 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectAllProducts } from "../../store/products";
+import { useEffect } from "react";
+import {
+  selectAllProducts,
+  getAllProducts,
+  deleteOneProduct,
+  reset,
+} from "../../store/products";
 import { modalActions } from "../../store/modal";
 import AddProduct from "../AddProduct";
 import Card from "../Card";
@@ -12,6 +18,14 @@ const Products = () => {
   const products = useSelector(selectAllProducts);
   const dispatch = useDispatch();
   const addModal = useSelector((state) => state.modal.addModalOpen);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch]);
+
   const tableHeadings = [
     "Product Name",
     "Manufacturer",
@@ -27,6 +41,7 @@ const Products = () => {
   const openAddModalHandler = () => {
     dispatch(modalActions.addModalOpen());
   };
+
   return (
     <div>
       <Card>
@@ -44,14 +59,16 @@ const Products = () => {
           <Table.Body>
             {products.map((product) => {
               return (
-                <Table.Row key={product.id}>
+                <Table.Row key={product._id}>
                   <Table.DataCell>{product.productName}</Table.DataCell>
                   <Table.DataCell>{product.manufacturer}</Table.DataCell>
                   <Table.DataCell>{product.productType}</Table.DataCell>
                   <Table.DataCell>{product.productGroup}</Table.DataCell>
                   <Table.DataCell>{product.price}</Table.DataCell>
                   <Table.DataCell>
-                    <DeleteButton />
+                    <DeleteButton
+                      onDelete={() => dispatch(deleteOneProduct(product._id))}
+                    />
                   </Table.DataCell>
                 </Table.Row>
               );

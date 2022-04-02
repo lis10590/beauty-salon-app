@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../store/products";
+import { productAddition } from "../store/products";
 import InputComponent from "./InputComponent";
 import styles from "../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
@@ -24,7 +24,8 @@ const AddProduct = (props) => {
 
   const dispatch = useDispatch();
 
-  const addNewProductHandler = () => {
+  const addNewProductHandler = (event) => {
+    event.preventDefault();
     if (
       product.productName &&
       product.manufacturer &&
@@ -33,16 +34,24 @@ const AddProduct = (props) => {
       product.price
     ) {
       dispatch(
-        addProduct(
-          product.productName,
-          product.manufacturer,
-          product.productType,
-          product.productGroup,
-          product.price
-        )
+        productAddition(product)
+        // addProduct(
+        //   product.productName,
+        //   product.manufacturer,
+        //   product.productType,
+        //   product.productGroup,
+        //   product.price
+        // )
       );
 
       props.onClose();
+      setProduct({
+        productName: "",
+        manufacturer: "",
+        productType: "",
+        productGroup: "",
+        price: "",
+      });
     }
   };
   return (

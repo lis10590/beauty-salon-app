@@ -1,5 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectAllTreatments } from "../../store/treatments";
+import { useEffect } from "react";
+import {
+  selectAllTreatments,
+  getAllTreatments,
+  deleteOneTreatment,
+  reset,
+} from "../../store/treatments";
 import { modalActions } from "../../store/modal";
 import AddTreatment from "../AddTreatment";
 import Card from "../Card";
@@ -13,6 +19,13 @@ const Treatments = () => {
   const dispatch = useDispatch();
   const addModal = useSelector((state) => state.modal.addModalOpen);
   const tableHeadings = ["Treatment Name", "Price (ILS)"];
+
+  useEffect(() => {
+    dispatch(getAllTreatments());
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch]);
   const closeAddModalHandler = () => {
     dispatch(modalActions.addModalClose());
   };
@@ -37,12 +50,16 @@ const Treatments = () => {
           <Table.Body>
             {treatments.map((treatment) => {
               return (
-                <Table.Row key={treatment.id}>
+                <Table.Row key={treatment._id}>
                   <Table.DataCell>{treatment.treatmentName}</Table.DataCell>
                   <Table.DataCell>{treatment.price}</Table.DataCell>
 
                   <Table.DataCell>
-                    <DeleteButton />
+                    <DeleteButton
+                      onDelete={() =>
+                        dispatch(deleteOneTreatment(treatment._id))
+                      }
+                    />
                   </Table.DataCell>
                 </Table.Row>
               );

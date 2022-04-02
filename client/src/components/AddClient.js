@@ -1,30 +1,46 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addClient } from "../store/clients";
+import { clientAddition } from "../store/clients";
 import InputComponent from "./InputComponent";
 import styles from "../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
 import { faUser, faMobilePhone } from "@fortawesome/free-solid-svg-icons";
 
 const AddClient = (props) => {
-  const [fullName, setFullName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  // const [fullName, setFullName] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState("");
 
-  const fullNameChangeHandler = (event) => {
-    setFullName(event.target.value);
+  const [client, setClient] = useState({
+    fullName: "",
+    phoneNumber: "",
+  });
+
+  const clientChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setClient((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const phoneNumberChangeHandler = (event) => {
-    setPhoneNumber(event.target.value);
-  };
+  // const fullNameChangeHandler = (event) => {
+  //   setFullName(event.target.value);
+  // };
+
+  // const phoneNumberChangeHandler = (event) => {
+  //   setPhoneNumber(event.target.value);
+  // };
   const dispatch = useDispatch();
 
-  const addNewClientHandler = () => {
-    if (fullName && phoneNumber) {
-      dispatch(addClient(fullName, phoneNumber));
-      setFullName("");
-      setPhoneNumber("");
+  const addNewClientHandler = (event) => {
+    event.preventDefault();
+    if (client.fullName && client.phoneNumber) {
+      dispatch(clientAddition(client));
       props.onClose();
+      setClient({
+        fullName: "",
+        phoneNumber: "",
+      });
     }
   };
 
@@ -32,7 +48,7 @@ const AddClient = (props) => {
     <Modal active={props.isOpen}>
       <Modal.Background>
         <Modal.Card className="mt-6">
-          <Modal.CardHead className="modal-card-head">
+          <Modal.CardHead>
             <Modal.CardTitle>Add Client</Modal.CardTitle>
             <Delete className="delete" onClick={props.onClose}></Delete>
           </Modal.CardHead>
@@ -44,8 +60,8 @@ const AddClient = (props) => {
               inputName="fullName"
               inputType="text"
               inputSize="small"
-              inputOnChange={fullNameChangeHandler}
-              inputValue={fullName}
+              inputOnChange={clientChangeHandler}
+              inputValue={client.fullName}
               spanClassName="icon is-small is-left"
               icon={faUser}
             />
@@ -56,14 +72,14 @@ const AddClient = (props) => {
               inputName="phoneNumber"
               inputType="tel"
               inputSize="small"
-              inputOnChange={phoneNumberChangeHandler}
-              inputValue={phoneNumber}
+              inputOnChange={clientChangeHandler}
+              inputValue={client.phoneNumber}
               spanClassName="icon is-small is-left"
               icon={faMobilePhone}
             />
 
             <Button
-              disabled={!fullName || !phoneNumber ? true : false}
+              disabled={!client.fullName || !client.phoneNumber ? true : false}
               className="button is-danger is-small mt-3"
               onClick={addNewClientHandler}
             >

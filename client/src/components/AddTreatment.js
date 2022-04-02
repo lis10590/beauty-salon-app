@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTreatment } from "../store/treatments";
+import { treatmentAddition } from "../store/treatments";
 import InputComponent from "./InputComponent";
 import styles from "../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
@@ -21,11 +21,15 @@ const AddTreatment = (props) => {
 
   const dispatch = useDispatch();
 
-  const addNewTreatmentHandler = () => {
+  const addNewTreatmentHandler = (event) => {
+    event.preventDefault();
     if (treatment.treatmentName && treatment.price) {
-      dispatch(addTreatment(treatment.treatmentName, treatment.price));
-
+      dispatch(treatmentAddition(treatment));
       props.onClose();
+      setTreatment({
+        treatmentName: "",
+        price: "",
+      });
     }
   };
   return (

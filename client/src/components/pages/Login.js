@@ -1,14 +1,15 @@
-import "bulma/css/bulma.min.css";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import InputComponent from "../InputComponent";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../../styles/Login.scss";
-import { postLogin } from "../../api/auth";
+import { login } from "../../store/auth";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -38,8 +39,7 @@ const Login = () => {
       email: enteredEmail,
       password: enteredPassword,
     };
-
-    postLogin(user);
+    dispatch(login(user));
 
     navigate("../home");
 

@@ -17,7 +17,7 @@ router.post("/register", (req, res) => {
   });
   User.find({ email: user.email }, (err, user) => {
     if (err) {
-      res.status(400).send({ message: "Create user failed", err });
+      res.status(400).send({ message: "Error in find function", err });
       return;
     }
     if (user[0]) {

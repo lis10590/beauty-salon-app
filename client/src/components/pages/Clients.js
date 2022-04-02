@@ -1,6 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { modalActions } from "../../store/modal";
-import { selectAllClients } from "../../store/clients";
+import {
+  selectAllClients,
+  getAllClients,
+  deleteOneClient,
+  reset,
+} from "../../store/clients";
 import { Panel, Control } from "react-bulma-companion";
 import { Link, useParams } from "react-router-dom";
 import AddAndDelete from "../AddAndDelete";
@@ -16,6 +22,13 @@ const Clients = () => {
 
   const clients = useSelector(selectAllClients);
   let { clientId } = useParams();
+
+  useEffect(() => {
+    dispatch(getAllClients());
+    // return () => {
+    //   dispatch(reset());
+    // };
+  }, [dispatch]);
 
   const closeAddModalHandler = () => {
     dispatch(modalActions.addModalClose());
@@ -33,18 +46,20 @@ const Clients = () => {
           <AddAndDelete onAddButton={openAddModalHandler} />
         </Panel.Heading>
         {clients.map((client) => {
-          clientId = client.id;
+          clientId = client._id;
           return (
             <Panel.Block>
               <Control
-                key={client.id}
+                key={client._id}
                 component={Link}
                 to={`/clients/${clientId}`}
                 className="is-justify-content-space-between"
               >
                 {client.fullName}
               </Control>
-              <DeleteButton />
+              <DeleteButton
+                onDelete={() => dispatch(deleteOneClient(client._id))}
+              />
             </Panel.Block>
           );
         })}

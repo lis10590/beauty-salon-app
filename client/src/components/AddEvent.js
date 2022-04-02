@@ -1,87 +1,80 @@
-// import Modal from "react-modal";
+import { useDispatch } from "react-redux";
+import { eventAddition } from "../store/events";
 import { useState } from "react";
-import Datetime from "react-datetime";
-import { Button, Modal } from "react-bulma-companion";
+import InputComponent from "./InputComponent";
+import { Button, Modal, Delete } from "react-bulma-companion";
+import DatePicker from "react-datepicker";
+import styles from "../styles/mystyles.scss";
 
 const AddEvent = (props) => {
-  const [title, setTitle] = useState("");
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
+  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
 
-  const titleChangeHandler = (event) => {
-    setTitle(event.target.value);
+  const dispatch = useDispatch();
+  const onChangeTitleHandler = (event) => {
+    setNewEvent((prevState) => ({
+      ...prevState,
+      title: event.target.value,
+    }));
   };
 
-  const startChangeHandler = (date) => {
-    setStart(date.toDate());
-  };
-
-  const endChangeHandler = (date) => {
-    setEnd(date.toDate());
-  };
-
-  const onSubmit = (event) => {
+  const onAddEvent = (event) => {
     event.preventDefault();
-    props.onEventAdded({
-      title,
-      start,
-      end,
-    });
+    if (newEvent.title && newEvent.start && newEvent.end) {
+      dispatch(eventAddition(newEvent));
+    }
 
     props.onClose();
+    setNewEvent({
+      title: "",
+      start: "",
+      end: "",
+    });
   };
   return (
     <Modal active={props.isOpen}>
-      <Modal.Card>
-        <Modal.CardHead>
-          <Modal.CardTitle>Add Event</Modal.CardTitle>
-          <Button
-            className="delete"
-            aria-label="close"
-            onClick={props.onClose}
-          ></Button>
-        </Modal.CardHead>
-        <Modal.CardBody>
-          <form onSubmit={onSubmit}>
-            <input
-              placeholder="Title"
-              value={title}
-              onChange={titleChangeHandler}
-            ></input>
-            <div>
-              <label>Start Date</label>
-              <Datetime value={start} onChange={startChangeHandler} />
-            </div>
-            <div>
-              <label>End Date</label>
-              <Datetime value={end} onChange={endChangeHandler} />
-            </div>
-
-            <button>Add Event</button>
-          </form>
-        </Modal.CardBody>
-      </Modal.Card>
+      <Modal.Background>
+        <Modal.Card className="modal-card-body-calendar mt-6">
+          <Modal.CardHead className="modal-card-header">
+            <Modal.CardTitle>Add Appointment</Modal.CardTitle>
+            <Delete className="delete" onClick={props.onClose}></Delete>
+          </Modal.CardHead>
+          <Modal.CardBody>
+            <InputComponent
+              labelSize="small"
+              labelContent="Title"
+              inputName="title"
+              inputType="text"
+              inputSize="small"
+              inputOnChange={onChangeTitleHandler}
+              inputValue={newEvent.title}
+            />
+            <DatePicker
+              placeholderText="Start Date"
+              selected={newEvent.start}
+              onChange={(start) => setNewEvent({ ...newEvent, start })}
+              showTimeSelect
+            />
+            <DatePicker
+              placeholderText="End Date"
+              selected={newEvent.end}
+              onChange={(end) => setNewEvent({ ...newEvent, end })}
+              showTimeSelect
+            />
+            <Button
+              disabled={
+                !newEvent.title || !newEvent.start || !newEvent.end
+                  ? true
+                  : false
+              }
+              className="button is-danger is-small mt-3"
+              onClick={onAddEvent}
+            >
+              Save
+            </Button>
+          </Modal.CardBody>
+        </Modal.Card>
+      </Modal.Background>
     </Modal>
-
-    // <Modal isOpen={props.isOpen} onRequestClose={props.onClose}>
-    //   <form onSubmit={onSubmit}>
-    //     <input
-    //       placeholder="Title"
-    //       value={title}
-    //       onChange={titleChangeHandler}
-    //     ></input>
-    //     <div>
-    //       <label>Start Date</label>
-    //       <Datetime value={start} onChange={startChangeHandler} />
-    //     </div>
-    //     <div>
-    //       <label>End Date</label>
-    //       <Datetime value={end} onChange={endChangeHandler} />
-    //     </div>
-
-    //     <button>Add Event</button>
-    //   </form>
-    // </Modal>
   );
 };
 
