@@ -20,7 +20,6 @@ const ClientCard = () => {
   // console.log(clientDate);
   // const date = new Date(clientDate);
   // console.log(date);
-  console.log(client.treatmentHistory.date);
 
   return (
     <Card>

@@ -1,4 +1,4 @@
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addNewEvent, getEvents, deleteEvent } from "../api/events";
 
 const initialEventState = {
@@ -107,6 +107,12 @@ const eventsSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.events = action.payload;
+        // state.events = state.events.map((event) => {
+        //   event._id = action.payload.id;
+        //   event.title = action.payload.title;
+        //   event.start = new Date(action.payload.start);
+        //   event.end = new Date(action.payload.end);
+        // });
       })
       .addCase(getAllEvents.rejected, (state, action) => {
         state.isLoading = false;

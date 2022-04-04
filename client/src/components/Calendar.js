@@ -18,6 +18,7 @@ import { Button, Buttons } from "react-bulma-companion";
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
 };
+
 const localizer = dateFnsLocalizer({
   format,
   parse,
@@ -31,6 +32,14 @@ const BigCalendar = () => {
 
   const addModal = useSelector((state) => state.modal.addModalOpen);
   const events = useSelector(selectAllEvents);
+  // const finalEvents = events.map((event) => {
+  //   event.start = new Date(event.start);
+  //   event.end = new Date(event.end);
+  //   event.title = event.title;
+  //   event._id = event._id;
+  // });
+
+  // console.log(finalEvents);
 
   useEffect(() => {
     dispatch(getAllEvents());
@@ -63,8 +72,9 @@ const BigCalendar = () => {
         events={events}
         startAccessor="start"
         endAccessor="end"
+        onShowMore={events}
         style={{
-          width: 700,
+          width: 900,
           height: 500,
           marginTop: "50px",
           marginLeft: 250,

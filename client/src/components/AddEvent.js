@@ -7,7 +7,11 @@ import DatePicker from "react-datepicker";
 import styles from "../styles/mystyles.scss";
 
 const AddEvent = (props) => {
-  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
+  const [newEvent, setNewEvent] = useState({
+    title: "",
+    start: "",
+    end: "",
+  });
 
   const dispatch = useDispatch();
   const onChangeTitleHandler = (event) => {
