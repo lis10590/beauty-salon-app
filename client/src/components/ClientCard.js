@@ -15,11 +15,7 @@ const ClientCard = () => {
   }, [dispatch]);
 
   let [client] = clients.filter((client) => clientId === client._id);
-  console.log(clients);
-  // const clientDate = JSON.parse(client.treatmentHistory.date);
-  // console.log(clientDate);
-  // const date = new Date(clientDate);
-  // console.log(date);
+  console.log(client);
 
   return (
     <Card>
@@ -30,9 +26,13 @@ const ClientCard = () => {
       </Panel.Block>
       <Panel.Block>
         <Label className="mr-2 mb-0">Treatment History:</Label>
-        {client.treatmentHistory.treatmentName} on
-        {client.treatmentHistory.date}
+        {client.treatmentHistory.treatmentName}
       </Panel.Block>
+      {/* <ul>
+        {client.treatmentHistory.treatmentName.map((treatmentName) => {
+          return <li>{treatmentName}</li>;
+        })}
+      </ul> */}
       <Panel.Block>
         <Label className="mr-2 mb-0">Products Purchased:</Label>
         {client.productsPurchased}

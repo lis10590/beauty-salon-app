@@ -3,6 +3,7 @@ const Event = require("./Event");
 const Client = require("./Client");
 const Product = require("./Product");
 const Treatment = require("./Treatment");
+const TreatmentHistory = require("./TreatmentHistory");
 
 module.exports = {
   User,
@@ -10,4 +11,5 @@ module.exports = {
   Client,
   Product,
   Treatment,
+  TreatmentHistory,
 };

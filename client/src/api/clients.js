@@ -2,6 +2,12 @@ import axios from "axios";
 
 const apiUrl = "http://localhost:3001";
 
+// const transformData = (response) => {
+//   response.map((client) => {
+//     client.treatmentHistory.
+//   });
+// };
+
 export const addNewClient = async (client) => {
   try {
     const res = await axios.post(`${apiUrl}/api/clients/newClient`, client);
