@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllClients, selectAllClients } from "../store/clients";
+import { getAllTreatmentHistoriesByName,selectAllTreatmentHistories } from "../store/treatmentHistory";
 import Card from "./Card";
 import { Label, Panel } from "react-bulma-companion";
 import { useParams } from "react-router-dom";
@@ -9,11 +10,15 @@ const ClientCard = () => {
   let { clientId } = useParams();
   const dispatch = useDispatch();
   const clients = useSelector(selectAllClients);
+  const treatmentHistories = useSelector(selectAllTreatmentHistories);
+  
 
   useEffect(() => {
     dispatch(getAllClients());
+    dispatch(getAllTreatmentHistoriesByName());
   }, [dispatch]);
 
+  console.log(treatmentHistories)
   let [client] = clients.filter((client) => clientId === client._id);
   console.log(client);
 

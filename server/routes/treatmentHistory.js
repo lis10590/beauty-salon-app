@@ -11,13 +11,7 @@ router.post("/newTreatmentHistory", async (req, res) => {
     date: treatmentHistory.date,
   });
 
-  TreatmentHistory.find(
-    { treatmentName: treatmentHistory.treatmentName },
-    (err, client) => {
-      if (err) {
-        res.status(400).send({ message: "Error in find function", err });
-        return;
-      }
+ 
 
       newTreatmentHistory.save((err, savedTreatmentHistory) => {
         if (err || !savedTreatmentHistory) {
@@ -28,12 +22,25 @@ router.post("/newTreatmentHistory", async (req, res) => {
           res.status(200).json(savedTreatmentHistory);
         }
       });
-    }
-  );
+    
+  
 });
 
 router.get("/getTreatmentHistory", (req, res) => {
+  
   TreatmentHistory.find({}, (err, treatmentHistoryList) => {
+    if (err) {
+      res.status(400).send({ message: "Error in find function", err });
+      return;
+    }
+
+    res.send(treatmentHistoryList);
+  });
+});
+
+router.get("/getTreatmentHistoryByName", (req, res) => {
+  const treatmentHistory = req.body;
+  TreatmentHistory.find({fullName: treatmentHistory.fullName}, (err, treatmentHistoryList) => {
     if (err) {
       res.status(400).send({ message: "Error in find function", err });
       return;

@@ -25,3 +25,15 @@ export const getTreatmentHistory = async () => {
     console.error(err);
   }
 };
+
+export const getTreatmentHistoryByName = async () => {
+  try {
+    const res = await axios.get(
+      `${apiUrl}/api/treatmentsHistory/getTreatmentHistoryByName`
+    );
+
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addNewTreatmentHistory,
   getTreatmentHistory,
+  getTreatmentHistoryByName
 } from "../api/treatmentHistory";
 
 const initialTreatmentHistoryState = {
@@ -46,6 +47,24 @@ export const getAllTreatmentHistories = createAsyncThunk(
   }
 );
 
+export const getAllTreatmentHistoriesByName = createAsyncThunk(
+  "treatmentsHistory/getTreatmentHistoryByName",
+  async (thunkAPI) => {
+    try {
+      return await getTreatmentHistoryByName();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+
 const TreatmentHistorySlice = createSlice({
   name: "TreatmentHistory",
   initialState: initialTreatmentHistoryState,
@@ -77,6 +96,17 @@ const TreatmentHistorySlice = createSlice({
         state.treatmentHistory = action.payload;
       })
       .addCase(getAllTreatmentHistories.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(getAllTreatmentHistoriesByName.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllTreatmentHistoriesByName.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.treatmentHistory = action.payload;
+      })
+      .addCase(getAllTreatmentHistoriesByName.rejected, (state, action) => {
         state.isLoading = false;
       });
   },
