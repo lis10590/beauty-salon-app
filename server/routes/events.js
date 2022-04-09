@@ -9,25 +9,28 @@ router.post("/newEvent", async (req, res) => {
     title: event.title,
     start: event.start,
     end: event.end,
+    clientName: event.fullName,
+    phoneNumber: event.phoneNumber,
   });
 
-  Event.find({ title: event.title }, (err, event) => {
-    if (err) {
-      res.status(400).send({ message: "Error in find function", err });
-      return;
-    }
-    if (event[0]) {
-      res.status(400).send({ message: "Event exists" });
-      return;
-    }
+  // Event.find({ title: event.title }, (err, event) => {
+  //   if (err) {
+  //     res.status(400).send({ message: "Error in find function", err });
+  //     return;
+  //   }
+  //   if (event[0]) {
+  //     res.status(400).send({ message: "Event exists" });
+  //     return;
+  //   }
 
-    newEvent.save((err, savedEvent) => {
-      if (err || !savedEvent) {
-        res.status(400).send({ message: "Saving event failed", err });
-      } else {
-        res.status(200).json(savedEvent);
-      }
-    });
+  // });
+
+  newEvent.save((err, savedEvent) => {
+    if (err || !savedEvent) {
+      res.status(400).send({ message: "Saving event failed", err });
+    } else {
+      res.status(200).json(savedEvent);
+    }
   });
 });
 

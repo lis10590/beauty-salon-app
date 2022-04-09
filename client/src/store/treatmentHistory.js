@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addNewTreatmentHistory,
   getTreatmentHistory,
-  getTreatmentHistoryByName
+  getTreatmentHistoryByName,
 } from "../api/treatmentHistory";
 
 const initialTreatmentHistoryState = {
@@ -14,7 +14,7 @@ const initialTreatmentHistoryState = {
 };
 
 export const treatmentHistoryAddition = createAsyncThunk(
-  "treatmentsHistory/newTreatmentHistory",
+  "treatmentHistory/newTreatmentHistory",
   async (treatmentHistory, thunkAPI) => {
     try {
       return await addNewTreatmentHistory(treatmentHistory);
@@ -31,7 +31,7 @@ export const treatmentHistoryAddition = createAsyncThunk(
 );
 
 export const getAllTreatmentHistories = createAsyncThunk(
-  "treatmentsHistory/getTreatmentHistory",
+  "treatmentHistory/getTreatmentHistory",
   async (thunkAPI) => {
     try {
       return await getTreatmentHistory();
@@ -48,7 +48,7 @@ export const getAllTreatmentHistories = createAsyncThunk(
 );
 
 export const getAllTreatmentHistoriesByName = createAsyncThunk(
-  "treatmentsHistory/getTreatmentHistoryByName",
+  "treatmentHistory/getTreatmentHistoryByName",
   async (thunkAPI) => {
     try {
       return await getTreatmentHistoryByName();
@@ -64,9 +64,8 @@ export const getAllTreatmentHistoriesByName = createAsyncThunk(
   }
 );
 
-
 const TreatmentHistorySlice = createSlice({
-  name: "TreatmentHistory",
+  name: "treatmentHistory",
   initialState: initialTreatmentHistoryState,
   reducers: {
     reset: (state) => initialTreatmentHistoryState,

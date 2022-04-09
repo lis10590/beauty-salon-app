@@ -4,8 +4,6 @@ const apiUrl = "http://localhost:3001";
 
 const transformData = (response) => {
   response.map((event) => {
-    event._id = event._id;
-    event.title = event.title;
     event.start = new Date(event.start);
     event.end = new Date(event.end);
   });

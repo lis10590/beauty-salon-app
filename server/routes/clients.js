@@ -10,7 +10,7 @@ router.post("/newClient", async (req, res) => {
     phoneNumber: client.phoneNumber,
   });
 
-  Client.find({ fullName: client.fullName }, (err, client) => {
+  Client.find({ phoneNumber: client.phoneNumber }, (err, client) => {
     if (err) {
       res.status(400).send({ message: "Error in find function", err });
       return;

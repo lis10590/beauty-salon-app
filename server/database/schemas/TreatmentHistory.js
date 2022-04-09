@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const TreatmentHistorySchema = new Schema({
   fullName: { type: String },
+  phoneNumber: { type: String },
   treatmentName: { type: String },
   date: { type: Date },
 });

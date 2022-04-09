@@ -17,6 +17,18 @@ export const addNewClient = async (client) => {
   }
 };
 
+export const addNewClientFromCalendar = async (client) => {
+  try {
+    const res = await axios.post(
+      `${apiUrl}/api/clients/newClientFromCalendar`,
+      client
+    );
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const getClients = async () => {
   try {
     const res = await axios.get(`${apiUrl}/api/clients/getClients`);

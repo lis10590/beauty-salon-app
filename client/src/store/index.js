@@ -7,6 +7,7 @@ import treatmentsReducer from "./treatments";
 import authReducer from "./auth";
 import userReducer from "./user";
 import eventsReducer from "./events";
+import treatmentHistoryReducer from "./treatmentHistory";
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     auth: authReducer,
     user: userReducer,
     events: eventsReducer,
+    treatmentHistory: treatmentHistoryReducer,
   },
 });
 

@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
 import { eventAddition } from "../store/events";
+import { clientAddition } from "../store/clients";
+import { treatmentHistoryAddition } from "../store/treatmentHistory";
 import { useState } from "react";
 import InputComponent from "./InputComponent";
 import { Button, Modal, Delete } from "react-bulma-companion";
@@ -9,27 +11,40 @@ import styles from "../styles/mystyles.scss";
 const AddEvent = (props) => {
   const [newEvent, setNewEvent] = useState({
     title: "",
+    fullName: "",
+    phoneNumber: "",
     start: "",
     end: "",
   });
 
   const dispatch = useDispatch();
-  const onChangeTitleHandler = (event) => {
+  const onChangeEventHandler = (event) => {
+    const { name, value } = event.target;
     setNewEvent((prevState) => ({
       ...prevState,
-      title: event.target.value,
+      [name]: value,
     }));
   };
 
   const onAddEvent = (event) => {
     event.preventDefault();
-    if (newEvent.title && newEvent.start && newEvent.end) {
+    if (
+      newEvent.title &&
+      newEvent.start &&
+      newEvent.end &&
+      newEvent.fullName &&
+      newEvent.phoneNumber
+    ) {
       dispatch(eventAddition(newEvent));
+      dispatch(clientAddition(newEvent));
+      dispatch(treatmentHistoryAddition(newEvent));
     }
 
     props.onClose();
     setNewEvent({
       title: "",
+      fullName: "",
+      phoneNumber: "",
       start: "",
       end: "",
     });
@@ -45,13 +60,32 @@ const AddEvent = (props) => {
           <Modal.CardBody>
             <InputComponent
               labelSize="small"
-              labelContent="Title"
+              labelContent="Treatment Details"
               inputName="title"
               inputType="text"
               inputSize="small"
-              inputOnChange={onChangeTitleHandler}
+              inputOnChange={onChangeEventHandler}
               inputValue={newEvent.title}
             />
+            <InputComponent
+              labelSize="small"
+              labelContent="Client Name"
+              inputName="fullName"
+              inputType="text"
+              inputSize="small"
+              inputOnChange={onChangeEventHandler}
+              inputValue={newEvent.fullName}
+            />
+            <InputComponent
+              labelSize="small"
+              labelContent="Phone Number"
+              inputName="phoneNumber"
+              inputType="tel"
+              inputSize="small"
+              inputOnChange={onChangeEventHandler}
+              inputValue={newEvent.phoneNumber}
+            />
+
             <DatePicker
               placeholderText="Start Date"
               selected={newEvent.start}
@@ -66,7 +100,11 @@ const AddEvent = (props) => {
             />
             <Button
               disabled={
-                !newEvent.title || !newEvent.start || !newEvent.end
+                !newEvent.title ||
+                !newEvent.start ||
+                !newEvent.end ||
+                !newEvent.fullName ||
+                !newEvent.phoneNumber
                   ? true
                   : false
               }

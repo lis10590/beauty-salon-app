@@ -12,7 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import AddAndDelete from "../AddAndDelete";
 import Card from "../Card";
 import AddClient from "../AddClient";
-import DeleteClient from "../DeleteClient";
+import DeleteModal from "../DeleteModal";
 import DeleteButton from "../DeleteButton";
 
 const Clients = () => {
@@ -37,6 +37,8 @@ const Clients = () => {
   const openAddModalHandler = () => {
     dispatch(modalActions.addModalOpen());
   };
+
+  const openDeleteModalHandler = () => {};
 
   return (
     <div>
@@ -65,6 +67,7 @@ const Clients = () => {
         })}
       </Card>
       <AddClient isOpen={addModal} onClose={closeAddModalHandler} />
+      <DeleteModal isOpen={addModal} onClose={closeAddModalHandler} />
     </div>
   );
 };

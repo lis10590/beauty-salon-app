@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addNewClient, getClients, deleteClient } from "../api/clients";
+import {
+  addNewClient,
+  getClients,
+  deleteClient,
+  addNewClientFromCalendar,
+} from "../api/clients";
 
 const initialClientsState = {
   clients: [],
@@ -8,6 +13,23 @@ const initialClientsState = {
   isSuccess: false,
   message: "",
 };
+
+export const clientAdditionFromCalendar = createAsyncThunk(
+  "clients/newClientFromCalendar",
+  async (client, thunkAPI) => {
+    try {
+      return await addNewClientFromCalendar(client);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const clientAddition = createAsyncThunk(
   "clients/newClient",
@@ -142,6 +164,20 @@ const clientSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(clientAdditionFromCalendar.pending, (state, action) => {
+        state.isLoading = true;
+      })
+
+      .addCase(clientAdditionFromCalendar.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.clients.push(action.payload);
+      })
+      .addCase(clientAdditionFromCalendar.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       .addCase(clientAddition.pending, (state, action) => {
         state.isLoading = true;
       })

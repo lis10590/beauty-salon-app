@@ -5,7 +5,7 @@ const apiUrl = "http://localhost:3001";
 export const addNewTreatmentHistory = async (treatmentHistory) => {
   try {
     const res = await axios.post(
-      `${apiUrl}/api/treatmentsHistory/newTreatmentHistory`,
+      `${apiUrl}/api/treatmentHistory/newTreatmentHistory`,
       treatmentHistory
     );
     return res.data;
@@ -17,7 +17,7 @@ export const addNewTreatmentHistory = async (treatmentHistory) => {
 export const getTreatmentHistory = async () => {
   try {
     const res = await axios.get(
-      `${apiUrl}/api/treatmentsHistory/getTreatmentHistory`
+      `${apiUrl}/api/treatmentHistory/getTreatmentHistory`
     );
 
     return res.data;
@@ -26,10 +26,11 @@ export const getTreatmentHistory = async () => {
   }
 };
 
-export const getTreatmentHistoryByName = async () => {
+export const getTreatmentHistoryByName = async (fullName) => {
   try {
     const res = await axios.get(
-      `${apiUrl}/api/treatmentsHistory/getTreatmentHistoryByName`
+      `${apiUrl}/api/treatmentHistory/getTreatmentHistoryByName`,
+      fullName
     );
 
     return res.data;

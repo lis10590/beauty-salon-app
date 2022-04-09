@@ -7,27 +7,21 @@ router.post("/newTreatmentHistory", async (req, res) => {
 
   const newTreatmentHistory = await new TreatmentHistory({
     fullName: treatmentHistory.fullName,
-    treatmentName: treatmentHistory.treatmentName,
-    date: treatmentHistory.date,
+    phoneNumber: treatmentHistory.phoneNumber,
+    treatmentName: treatmentHistory.title,
+    date: treatmentHistory.start,
   });
 
- 
-
-      newTreatmentHistory.save((err, savedTreatmentHistory) => {
-        if (err || !savedTreatmentHistory) {
-          res
-            .status(400)
-            .send({ message: "Saving treatment history failed", err });
-        } else {
-          res.status(200).json(savedTreatmentHistory);
-        }
-      });
-    
-  
+  newTreatmentHistory.save((err, savedTreatmentHistory) => {
+    if (err || !savedTreatmentHistory) {
+      res.status(400).send({ message: "Saving treatment history failed", err });
+    } else {
+      res.status(200).json(savedTreatmentHistory);
+    }
+  });
 });
 
 router.get("/getTreatmentHistory", (req, res) => {
-  
   TreatmentHistory.find({}, (err, treatmentHistoryList) => {
     if (err) {
       res.status(400).send({ message: "Error in find function", err });
@@ -40,14 +34,22 @@ router.get("/getTreatmentHistory", (req, res) => {
 
 router.get("/getTreatmentHistoryByName", (req, res) => {
   const treatmentHistory = req.body;
-  TreatmentHistory.find({fullName: treatmentHistory.fullName}, (err, treatmentHistoryList) => {
-    if (err) {
-      res.status(400).send({ message: "Error in find function", err });
-      return;
-    }
+  TreatmentHistory.find(
+    { fullName: treatmentHistory.fullName },
+    (err, treatmentHistoryList) => {
+      if (err) {
+        res.status(400).send({ message: "Error in find function", err });
+        return;
+      }
 
-    res.send(treatmentHistoryList);
-  });
+      if (!treatmentHistoryList) {
+        res.status(400).send({ message: "treatments are not found!", err });
+        return;
+      }
+
+      res.send(treatmentHistoryList);
+    }
+  );
 });
 
 module.exports = router;

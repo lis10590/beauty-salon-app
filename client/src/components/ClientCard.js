@@ -1,7 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllClients, selectAllClients } from "../store/clients";
-import { getAllTreatmentHistoriesByName,selectAllTreatmentHistories } from "../store/treatmentHistory";
+import {
+  getAllTreatmentHistoriesByName,
+  selectAllTreatmentHistories,
+} from "../store/treatmentHistory";
 import Card from "./Card";
 import { Label, Panel } from "react-bulma-companion";
 import { useParams } from "react-router-dom";
@@ -11,27 +14,26 @@ const ClientCard = () => {
   const dispatch = useDispatch();
   const clients = useSelector(selectAllClients);
   const treatmentHistories = useSelector(selectAllTreatmentHistories);
-  
 
   useEffect(() => {
     dispatch(getAllClients());
-    dispatch(getAllTreatmentHistoriesByName());
+    // dispatch(getAllTreatmentHistoriesByName(client.fullName));
   }, [dispatch]);
 
-  console.log(treatmentHistories)
   let [client] = clients.filter((client) => clientId === client._id);
   console.log(client);
+  console.log(treatmentHistories);
 
   return (
     <Card>
-      <Panel.Heading>{client.fullName}</Panel.Heading>
+      <Panel.Heading>{client ? client.fullName : null}</Panel.Heading>
       <Panel.Block>
         <Label className="mr-2 mb-0">Phone Number:</Label>
-        {client.phoneNumber}
+        {/* {client.phoneNumber} */}
       </Panel.Block>
       <Panel.Block>
         <Label className="mr-2 mb-0">Treatment History:</Label>
-        {client.treatmentHistory.treatmentName}
+        {/* {client.treatmentHistory.treatmentName} */}
       </Panel.Block>
       {/* <ul>
         {client.treatmentHistory.treatmentName.map((treatmentName) => {
@@ -40,7 +42,7 @@ const ClientCard = () => {
       </ul> */}
       <Panel.Block>
         <Label className="mr-2 mb-0">Products Purchased:</Label>
-        {client.productsPurchased}
+        {/* {client.productsPurchased} */}
       </Panel.Block>
     </Card>
   );
