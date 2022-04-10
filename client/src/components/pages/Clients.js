@@ -19,6 +19,7 @@ const Clients = () => {
   const dispatch = useDispatch();
 
   const addModal = useSelector((state) => state.modal.addModalOpen);
+  const deleteModal = useSelector((state) => state.modal.deleteModalOpen);
 
   const clients = useSelector(selectAllClients);
   let { clientId } = useParams();
@@ -38,7 +39,15 @@ const Clients = () => {
     dispatch(modalActions.addModalOpen());
   };
 
-  const openDeleteModalHandler = () => {};
+  const openDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalOpen());
+  };
+
+  const closeDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalClose());
+  };
+
+
 
   return (
     <div>
@@ -60,14 +69,17 @@ const Clients = () => {
                 {client.fullName}
               </Control>
               <DeleteButton
-                onDelete={() => dispatch(deleteOneClient(client._id))}
+                onDelete={openDeleteModalHandler/*() => dispatch(deleteOneClient(client._id))*/}
               />
+              <DeleteModal onYesClick={()=>dispatch(deleteOneClient(client._id))} onNoClick={closeDeleteModalHandler} isOpen={deleteModal} onClose={closeDeleteModalHandler} />
+              
             </Panel.Block>
           );
         })}
       </Card>
       <AddClient isOpen={addModal} onClose={closeAddModalHandler} />
-      <DeleteModal isOpen={addModal} onClose={closeAddModalHandler} />
+      
+      
     </div>
   );
 };

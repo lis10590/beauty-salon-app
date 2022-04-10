@@ -11,8 +11,8 @@ const DeleteModal = (props) => {
           <Modal.CardBody>
             <Title size="6">Are you sure you want to delete?</Title>
 
-            <Button className="button is-danger is-small mt-3">Yes</Button>
-            <Button className="button is-danger is-small mt-3">No</Button>
+            <Button onClick={props.onYesClick} className="button is-danger is-small mt-3 mr-3">Yes</Button>
+            <Button onClick={props.onNoClick} className="button is-danger is-small mt-3">No</Button>
           </Modal.CardBody>
         </Modal.Card>
       </Modal.Background>
