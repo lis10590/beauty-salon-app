@@ -11,6 +11,7 @@ import AddTreatment from "../AddTreatment";
 import Card from "../Card";
 import AddAndDelete from "../AddAndDelete";
 import DeleteButton from "../DeleteButton";
+import DeleteModal from "../DeleteModal";
 import TableHead from "../TableHead";
 import { Panel, Table } from "react-bulma-companion";
 
@@ -18,6 +19,7 @@ const Treatments = () => {
   const treatments = useSelector(selectAllTreatments);
   const dispatch = useDispatch();
   const addModal = useSelector((state) => state.modal.addModalOpen);
+  const deleteModal = useSelector((state) => state.modal.deleteModalOpen);
   const tableHeadings = ["Treatment Name", "Price (ILS)"];
 
   useEffect(() => {
@@ -32,6 +34,14 @@ const Treatments = () => {
 
   const openAddModalHandler = () => {
     dispatch(modalActions.addModalOpen());
+  };
+
+  const openDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalOpen());
+  };
+
+  const closeDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalClose());
   };
   return (
     <div>
@@ -55,10 +65,15 @@ const Treatments = () => {
                   <Table.DataCell>{treatment.price}</Table.DataCell>
 
                   <Table.DataCell>
-                    <DeleteButton
-                      onDelete={() =>
-                        dispatch(deleteOneTreatment(treatment._id))
-                      }
+                    <DeleteButton onDelete={openDeleteModalHandler} />
+                    <DeleteModal
+                      onYesClick={() => {
+                        dispatch(deleteOneTreatment(treatment._id));
+                        dispatch(modalActions.deleteModalClose());
+                      }}
+                      onNoClick={closeDeleteModalHandler}
+                      isOpen={deleteModal}
+                      onClose={closeDeleteModalHandler}
                     />
                   </Table.DataCell>
                 </Table.Row>

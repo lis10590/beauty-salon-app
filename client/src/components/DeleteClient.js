@@ -1,13 +1,16 @@
+import { useSelector, useDispatch } from "react-redux";
+import { selectAllProducts, getAllProducts } from "../store/products";
 import DropdownMenu from "./DropdownMenu";
 import styles from "../styles/mystyles.scss";
 import { Modal, Button, Delete, Dropdown } from "react-bulma-companion";
-import clients from "../tests/clientSideTests";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const DeleteClient = (props) => {
+  const dispatch = useDispatch();
+  const products = useSelector(selectAllProducts);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [title, setTitle] = useState("Clients");
+  const [title, setTitle] = useState("Products");
 
   const menuHandler = () => {
     menuOpen ? setMenuOpen(false) : setMenuOpen(true);

@@ -49,9 +49,10 @@ export const getAllTreatmentHistories = createAsyncThunk(
 
 export const getAllTreatmentHistoriesByName = createAsyncThunk(
   "treatmentHistory/getTreatmentHistoryByName",
-  async (thunkAPI) => {
+  async (fullName, thunkAPI) => {
     try {
-      return await getTreatmentHistoryByName();
+      console.log(fullName);
+      return await getTreatmentHistoryByName(fullName);
     } catch (error) {
       const message =
         (error.response &&

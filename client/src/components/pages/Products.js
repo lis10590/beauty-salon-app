@@ -12,12 +12,14 @@ import Card from "../Card";
 import TableHead from "../TableHead";
 import AddAndDelete from "../AddAndDelete";
 import DeleteButton from "../DeleteButton";
+import DeleteModal from "../DeleteModal";
 import { Table, Panel } from "react-bulma-companion";
 
 const Products = () => {
   const products = useSelector(selectAllProducts);
   const dispatch = useDispatch();
   const addModal = useSelector((state) => state.modal.addModalOpen);
+  const deleteModal = useSelector((state) => state.modal.deleteModalOpen);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -40,6 +42,14 @@ const Products = () => {
 
   const openAddModalHandler = () => {
     dispatch(modalActions.addModalOpen());
+  };
+
+  const openDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalOpen());
+  };
+
+  const closeDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalClose());
   };
 
   return (
@@ -66,8 +76,15 @@ const Products = () => {
                   <Table.DataCell>{product.productGroup}</Table.DataCell>
                   <Table.DataCell>{product.price}</Table.DataCell>
                   <Table.DataCell>
-                    <DeleteButton
-                      onDelete={() => dispatch(deleteOneProduct(product._id))}
+                    <DeleteButton onDelete={openDeleteModalHandler} />
+                    <DeleteModal
+                      onYesClick={() => {
+                        dispatch(deleteOneProduct(product._id));
+                        dispatch(modalActions.deleteModalClose());
+                      }}
+                      onNoClick={closeDeleteModalHandler}
+                      isOpen={deleteModal}
+                      onClose={closeDeleteModalHandler}
                     />
                   </Table.DataCell>
                 </Table.Row>

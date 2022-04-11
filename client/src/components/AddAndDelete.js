@@ -4,22 +4,16 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const AddAndDelete = (props) => {
   return (
-    <Buttons className="is-justify-content-center mt-2">
+    <div className="mt-3">
       <Button
         onClick={props.onAddButton}
         size="small"
-        className="is-rounded is-danger"
+        className={`${props.className} + is-rounded is-danger`}
+        /*"is-rounded is-danger"*/
       >
         <FontAwesomeIcon icon={faPlus} />
       </Button>
-      {/* <Button
-        onClick={props.onDeleteButton}
-        size="small"
-        className="is-rounded is-danger"
-      >
-        <FontAwesomeIcon icon={faTrashCan} />
-      </Button> */}
-    </Buttons>
+    </div>
   );
 };
 

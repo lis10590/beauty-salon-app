@@ -28,11 +28,12 @@ export const getTreatmentHistory = async () => {
 
 export const getTreatmentHistoryByName = async (fullName) => {
   try {
+    console.log(fullName);
     const res = await axios.get(
       `${apiUrl}/api/treatmentHistory/getTreatmentHistoryByName`,
-      fullName
+      { params: { fullName: fullName } }
     );
-
+    console.log(res.data);
     return res.data;
   } catch (err) {
     console.error(err);

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { modalActions } from "../store/modal";
+import DeleteModal from "./DeleteModal";
 import {
   selectAllEvents,
   getAllEvents,
@@ -31,6 +32,7 @@ const BigCalendar = () => {
   const dispatch = useDispatch();
 
   const addModal = useSelector((state) => state.modal.addModalOpen);
+  const deleteModal = useSelector((state) => state.modal.deleteModalOpen);
   const events = useSelector(selectAllEvents);
   // const finalEvents = events.map((event) => {
   //   event.start = new Date(event.start);
@@ -56,7 +58,31 @@ const BigCalendar = () => {
     dispatch(modalActions.addModalOpen());
   };
 
-  console.log(events);
+  const openDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalOpen());
+  };
+
+  const closeDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalClose());
+  };
+
+  const onDeleteEventHandler = (event) => {
+    dispatch(modalActions.deleteModalOpen());
+    return event;
+    // return (
+    //   <DeleteModal
+    //     onYesClick={(chosenEvent) => {
+    //       dispatch(deleteOneEvent(event._id));
+    //       dispatch(modalActions.deleteModalClose());
+    //     }}
+    //     onNoClick={closeDeleteModalHandler}
+    //     isOpen={deleteModal}
+    //     onClose={closeDeleteModalHandler}
+    //   />
+    // );
+  };
+
+  // console.log(events);
 
   return (
     <>
@@ -83,10 +109,21 @@ const BigCalendar = () => {
           console.log(slotInfo);
         }}
         selectable
-        onSelectEvent={(event) => dispatch(deleteOneEvent(event._id))}
+        onSelectEvent={(event) => {
+          console.log(event);
+        }}
       />
       <AddEvent isOpen={addModal} onClose={closeAddModalHandler} />
-      {/* <AddClient isOpen={addModal} onClose={closeAddModalHandler} /> */}
+      <DeleteModal
+        onYesClick={(event) => {
+          console.log(event);
+          // dispatch(deleteOneEvent(event._id));
+          // dispatch(modalActions.deleteModalClose());
+        }}
+        onNoClick={closeDeleteModalHandler}
+        isOpen={deleteModal}
+        onClose={closeDeleteModalHandler}
+      />
     </>
   );
 };

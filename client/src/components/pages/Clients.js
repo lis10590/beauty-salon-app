@@ -47,8 +47,6 @@ const Clients = () => {
     dispatch(modalActions.deleteModalClose());
   };
 
-
-
   return (
     <div>
       <Card>
@@ -68,18 +66,21 @@ const Clients = () => {
               >
                 {client.fullName}
               </Control>
-              <DeleteButton
-                onDelete={openDeleteModalHandler/*() => dispatch(deleteOneClient(client._id))*/}
+              <DeleteButton onDelete={openDeleteModalHandler} />
+              <DeleteModal
+                onYesClick={() => {
+                  dispatch(deleteOneClient(client._id));
+                  dispatch(modalActions.deleteModalClose());
+                }}
+                onNoClick={closeDeleteModalHandler}
+                isOpen={deleteModal}
+                onClose={closeDeleteModalHandler}
               />
-              <DeleteModal onYesClick={()=>dispatch(deleteOneClient(client._id))} onNoClick={closeDeleteModalHandler} isOpen={deleteModal} onClose={closeDeleteModalHandler} />
-              
             </Panel.Block>
           );
         })}
       </Card>
       <AddClient isOpen={addModal} onClose={closeAddModalHandler} />
-      
-      
     </div>
   );
 };
