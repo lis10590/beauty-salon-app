@@ -6,6 +6,8 @@ const userSchema = new Schema({
   lname: { type: String, maxlength: 20 },
   password: { type: String, required: true },
   email: { type: String, required: true },
+  hash: { type: String },
+  salt: { type: String },
 });
 
 const User = mongoose.model("User", userSchema);
