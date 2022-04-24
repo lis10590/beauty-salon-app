@@ -1,24 +1,25 @@
-import superagent from "superagent";
-import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const apiUrl = "http://localhost:3001";
 
 export const postRegister = async (user) => {
-  try {
-    const res = await superagent.post(`${apiUrl}/api/auth/register`, user);
-    console.log(res);
-  } catch (err) {
-    console.error(err);
+  const res = await axios.post(`${apiUrl}/api/auth/register`, user);
+
+  if (res.data) {
+    localStorage.setItem("user", JSON.stringify(res.data));
   }
+  return res.data;
 };
 
 export const postLogin = async (user) => {
-  try {
-    const res = await superagent.post("/api/auth/login", user);
-    console.log(res);
-  } catch (err) {
-    console.error(err);
+  const res = await axios.post(`${apiUrl}/api/auth/login`, user);
+
+  if (res.data) {
+    localStorage.setItem("user", JSON.stringify(res.data));
   }
+  return res.data;
 };
 
-
+export const logoutUser = () => {
+  localStorage.removeItem("user");
+};
