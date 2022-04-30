@@ -5,10 +5,10 @@ import {
   getAllTreatmentHistoriesByName,
   selectAllTreatmentHistories,
 } from "../store/treatmentHistory";
-import Card from "./Card";
+import Card from "./UI/Card";
 import { modalActions } from "../store/modal";
-import AddAndDelete from "./AddAndDelete";
-import AddPurchasedProducts from "./AddPurchasedProducts";
+import AddButton from "./UI/AddButton";
+import AddPurchasedProducts from "./Addition Modals/AddPurchasedProducts";
 import { Label, Panel } from "react-bulma-companion";
 import { useParams } from "react-router-dom";
 import styles from "../styles/ClientCard.scss";
@@ -69,7 +69,7 @@ const ClientCard = () => {
 
         <Panel.Block>
           <div>
-            <AddAndDelete
+            <AddButton
               onAddButton={openAddModalHandler}
               className="products-button"
             />

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import styles from "../styles/mystyles.scss";
+import styles from "../../styles/mystyles.scss";
 
 const DeleteButton = (props) => {
   return (

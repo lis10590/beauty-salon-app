@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { clientAddition } from "../store/clients";
-import InputComponent from "./InputComponent";
-import styles from "../styles/mystyles.scss";
+import { clientAddition } from "../../store/clients";
+import InputComponent from "../UI/InputComponent";
+import styles from "../../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
 import { faUser, faMobilePhone } from "@fortawesome/free-solid-svg-icons";
 
 const AddClient = (props) => {
-  // const [fullName, setFullName] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState("");
-
   const [client, setClient] = useState({
     fullName: "",
     phoneNumber: "",
@@ -23,13 +20,6 @@ const AddClient = (props) => {
     }));
   };
 
-  // const fullNameChangeHandler = (event) => {
-  //   setFullName(event.target.value);
-  // };
-
-  // const phoneNumberChangeHandler = (event) => {
-  //   setPhoneNumber(event.target.value);
-  // };
   const dispatch = useDispatch();
 
   const addNewClientHandler = (event) => {

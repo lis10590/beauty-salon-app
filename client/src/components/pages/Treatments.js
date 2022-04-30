@@ -7,12 +7,12 @@ import {
   reset,
 } from "../../store/treatments";
 import { modalActions } from "../../store/modal";
-import AddTreatment from "../AddTreatment";
-import Card from "../Card";
-import AddAndDelete from "../AddAndDelete";
-import DeleteButton from "../DeleteButton";
+import AddTreatment from "../Addition Modals/AddTreatment";
+import Card from "../UI/Card";
+import AddButton from "../UI/AddButton";
+import DeleteButton from "../UI/DeleteButton";
 import DeleteModal from "../DeleteModal";
-import TableHead from "../TableHead";
+import TableHead from "../UI/TableHead";
 import { Panel, Table } from "react-bulma-companion";
 
 const Treatments = () => {
@@ -48,7 +48,7 @@ const Treatments = () => {
       <Card>
         <Panel.Heading>
           Treatment List
-          <AddAndDelete onAddButton={openAddModalHandler} />
+          <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>
 
         <Table>

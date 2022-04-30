@@ -2,20 +2,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
-import InputComponent from "../InputComponent";
+import InputComponent from "../UI/InputComponent";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../../styles/Login.scss";
 import { login, reset } from "../../store/auth";
 
 const Login = () => {
+  //definition of useNavigate and useDispatch hooks
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  //distructuring of states from redux store
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
 
+  //email validation
   let emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 
   useEffect(() => {
@@ -30,9 +33,9 @@ const Login = () => {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
+  //inputs distructuring for validation using custom hook useInput
   const {
     value: enteredEmail,
-    isValid: enteredEmailIsValid,
     hasError: emailInputHasError,
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
@@ -40,18 +43,12 @@ const Login = () => {
 
   const {
     value: enteredPassword,
-    isValid: enteredPasswordIsValid,
     hasError: passwordInputHasError,
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
   } = useInput((value) => value.length > 5);
 
-  let formIsValid = false;
-
-  if (enteredEmailIsValid && enteredPasswordIsValid) {
-    formIsValid = true;
-  }
-
+  //function activates by pressing on login button
   const loginHandler = (event) => {
     event.preventDefault();
 
@@ -65,6 +62,7 @@ const Login = () => {
     };
     dispatch(login(user));
   };
+
   return (
     <Box className="login">
       <Field>

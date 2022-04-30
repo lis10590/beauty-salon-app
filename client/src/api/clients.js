@@ -2,12 +2,7 @@ import axios from "axios";
 
 const apiUrl = "http://localhost:3001";
 
-// const transformData = (response) => {
-//   response.map((client) => {
-//     client.treatmentHistory.
-//   });
-// };
-
+//addition of a new client from clients page
 export const addNewClient = async (client) => {
   try {
     const res = await axios.post(`${apiUrl}/api/clients/newClient`, client);
@@ -17,6 +12,7 @@ export const addNewClient = async (client) => {
   }
 };
 
+//addition of new client from calendar
 export const addNewClientFromCalendar = async (client) => {
   try {
     const res = await axios.post(
@@ -29,6 +25,7 @@ export const addNewClientFromCalendar = async (client) => {
   }
 };
 
+//display all clients
 export const getClients = async () => {
   try {
     const res = await axios.get(`${apiUrl}/api/clients/getClients`);
@@ -38,7 +35,7 @@ export const getClients = async () => {
     console.error(err);
   }
 };
-
+//delete a client
 export const deleteClient = async (clientId) => {
   try {
     const res = await axios.delete(`${apiUrl}/api/clients/deleteClient`, {
@@ -49,7 +46,7 @@ export const deleteClient = async (clientId) => {
     console.error(err);
   }
 };
-
+//update client data
 export const updateClient = async (client) => {
   try {
     const res = await axios.put(`${apiUrl}/api/clients/updateClient`, client);

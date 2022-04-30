@@ -2,6 +2,7 @@ import axios from "axios";
 
 const apiUrl = "http://localhost:3001";
 
+//add new treatment
 export const addNewTreatment = async (treatment) => {
   try {
     const res = await axios.post(
@@ -14,6 +15,7 @@ export const addNewTreatment = async (treatment) => {
   }
 };
 
+//display all treatments
 export const getTreatments = async () => {
   try {
     const res = await axios.get(`${apiUrl}/api/treatments/getTreatments`);
@@ -24,6 +26,7 @@ export const getTreatments = async () => {
   }
 };
 
+//delete treatment
 export const deleteTreatment = async (treatmentId) => {
   try {
     const res = await axios.delete(`${apiUrl}/api/treatments/deleteTreatment`, {

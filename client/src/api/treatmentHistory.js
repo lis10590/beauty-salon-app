@@ -2,6 +2,7 @@ import axios from "axios";
 
 const apiUrl = "http://localhost:3001";
 
+//add a treatment to client's treatment history
 export const addNewTreatmentHistory = async (treatmentHistory) => {
   try {
     const res = await axios.post(
@@ -13,7 +14,7 @@ export const addNewTreatmentHistory = async (treatmentHistory) => {
     console.error(err);
   }
 };
-
+//display treatment histories in db
 export const getTreatmentHistory = async () => {
   try {
     const res = await axios.get(
@@ -25,7 +26,7 @@ export const getTreatmentHistory = async () => {
     console.error(err);
   }
 };
-
+//display treatment history of a client
 export const getTreatmentHistoryByName = async (fullName) => {
   try {
     console.log(fullName);

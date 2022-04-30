@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import InputComponent from "./InputComponent";
+import InputComponent from "./UI/InputComponent";
 import useInput from "../hooks/useInput";
 import styles from "../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";

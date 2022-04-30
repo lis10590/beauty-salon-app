@@ -5,15 +5,14 @@ import {
   selectAllClients,
   getAllClients,
   deleteOneClient,
-  reset,
 } from "../../store/clients";
 import { Panel, Control } from "react-bulma-companion";
 import { Link, useParams } from "react-router-dom";
-import AddAndDelete from "../AddAndDelete";
-import Card from "../Card";
-import AddClient from "../AddClient";
+import AddButton from "../UI/AddButton";
+import Card from "../UI/Card";
+import AddClient from "../Addition Modals/AddClient";
 import DeleteModal from "../DeleteModal";
-import DeleteButton from "../DeleteButton";
+import DeleteButton from "../UI/DeleteButton";
 
 const Clients = () => {
   const dispatch = useDispatch();
@@ -26,9 +25,6 @@ const Clients = () => {
 
   useEffect(() => {
     dispatch(getAllClients());
-    // return () => {
-    //   dispatch(reset());
-    // };
   }, [dispatch]);
 
   const closeAddModalHandler = () => {
@@ -52,7 +48,7 @@ const Clients = () => {
       <Card>
         <Panel.Heading>
           Clients
-          <AddAndDelete onAddButton={openAddModalHandler} />
+          <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>
         {clients.map((client) => {
           clientId = client._id;

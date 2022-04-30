@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { treatmentAddition } from "../store/treatments";
-import InputComponent from "./InputComponent";
-import styles from "../styles/mystyles.scss";
+import { treatmentAddition } from "../../store/treatments";
+import InputComponent from "../UI/InputComponent";
+import styles from "../../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
 
 const AddTreatment = (props) => {

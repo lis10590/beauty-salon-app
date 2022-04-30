@@ -3,7 +3,7 @@ import { modalActions } from "../../store/modal";
 import ChangePassword from "../ChangePassword";
 import { Panel, Label, Button } from "react-bulma-companion";
 
-import Card from "../Card";
+import Card from "../UI/Card";
 
 const MyAccount = () => {
   const dispatch = useDispatch();

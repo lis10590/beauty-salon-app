@@ -13,18 +13,6 @@ router.post("/newEvent", async (req, res) => {
     phoneNumber: event.phoneNumber,
   });
 
-  // Event.find({ title: event.title }, (err, event) => {
-  //   if (err) {
-  //     res.status(400).send({ message: "Error in find function", err });
-  //     return;
-  //   }
-  //   if (event[0]) {
-  //     res.status(400).send({ message: "Event exists" });
-  //     return;
-  //   }
-
-  // });
-
   newEvent.save((err, savedEvent) => {
     if (err || !savedEvent) {
       res.status(400).send({ message: "Saving event failed", err });

@@ -1,10 +1,9 @@
-import InputComponent from "./InputComponent";
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "../UI/DropdownMenu";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, selectAllProducts, reset } from "../store/products";
-import { purchasedProductsUpdate } from "../store/clients";
-import styles from "../styles/mystyles.scss";
+import { getAllProducts, selectAllProducts, reset } from "../../store/products";
+import { purchasedProductsUpdate } from "../../store/clients";
+import styles from "../../styles/mystyles.scss";
 import { Modal, Button, Delete, Dropdown } from "react-bulma-companion";
 
 const AddPurchasedProducts = (props) => {

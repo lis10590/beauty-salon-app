@@ -2,6 +2,7 @@ import axios from "axios";
 
 const apiUrl = "http://localhost:3001";
 
+//register a new user
 export const postRegister = async (user) => {
   const res = await axios.post(`${apiUrl}/api/auth/register`, user);
 
@@ -11,6 +12,7 @@ export const postRegister = async (user) => {
   return res.data;
 };
 
+//login a user
 export const postLogin = async (user) => {
   const res = await axios.post(`${apiUrl}/api/auth/login`, user);
 
@@ -19,6 +21,8 @@ export const postLogin = async (user) => {
   }
   return res.data;
 };
+
+//logout a user
 
 export const logoutUser = () => {
   localStorage.removeItem("user");

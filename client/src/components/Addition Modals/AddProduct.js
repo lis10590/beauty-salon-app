@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { productAddition } from "../store/products";
-import InputComponent from "./InputComponent";
-import styles from "../styles/mystyles.scss";
+import { productAddition } from "../../store/products";
+import InputComponent from "../UI/InputComponent";
+import styles from "../../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
 
 const AddProduct = (props) => {
@@ -33,16 +33,7 @@ const AddProduct = (props) => {
       product.productGroup &&
       product.price
     ) {
-      dispatch(
-        productAddition(product)
-        // addProduct(
-        //   product.productName,
-        //   product.manufacturer,
-        //   product.productType,
-        //   product.productGroup,
-        //   product.price
-        // )
-      );
+      dispatch(productAddition(product));
 
       props.onClose();
       setProduct({

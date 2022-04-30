@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { eventAddition } from "../store/events";
-import { clientAddition } from "../store/clients";
-import { treatmentHistoryAddition } from "../store/treatmentHistory";
+import { eventAddition } from "../../store/events";
+import { clientAddition } from "../../store/clients";
+import { treatmentHistoryAddition } from "../../store/treatmentHistory";
 import { useState } from "react";
-import InputComponent from "./InputComponent";
+import InputComponent from "../UI/InputComponent";
 import { Button, Modal, Delete } from "react-bulma-companion";
 import DatePicker from "react-datepicker";
-import styles from "../styles/mystyles.scss";
+import styles from "../../styles/mystyles.scss";
 
 const AddEvent = (props) => {
   const [newEvent, setNewEvent] = useState({

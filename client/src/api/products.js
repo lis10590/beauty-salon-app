@@ -2,6 +2,7 @@ import axios from "axios";
 
 const apiUrl = "http://localhost:3001";
 
+//addition of new product
 export const addNewProduct = async (product) => {
   try {
     const res = await axios.post(`${apiUrl}/api/products/newProduct`, product);
@@ -11,6 +12,7 @@ export const addNewProduct = async (product) => {
   }
 };
 
+//display all products
 export const getProducts = async () => {
   try {
     const res = await axios.get(`${apiUrl}/api/products/getProducts`);
@@ -20,7 +22,7 @@ export const getProducts = async () => {
     console.error(err);
   }
 };
-
+//delete product
 export const deleteProduct = async (productId) => {
   try {
     const res = await axios.delete(`${apiUrl}/api/products/deleteProduct`, {

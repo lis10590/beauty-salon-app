@@ -7,11 +7,11 @@ import {
   reset,
 } from "../../store/products";
 import { modalActions } from "../../store/modal";
-import AddProduct from "../AddProduct";
-import Card from "../Card";
-import TableHead from "../TableHead";
-import AddAndDelete from "../AddAndDelete";
-import DeleteButton from "../DeleteButton";
+import AddProduct from "../Addition Modals/AddProduct";
+import Card from "../UI/Card";
+import TableHead from "../UI/TableHead";
+import AddButton from "../UI/AddButton";
+import DeleteButton from "../UI/DeleteButton";
 import DeleteModal from "../DeleteModal";
 import { Table, Panel } from "react-bulma-companion";
 
@@ -57,7 +57,7 @@ const Products = () => {
       <Card>
         <Panel.Heading>
           Product List
-          <AddAndDelete onAddButton={openAddModalHandler} />
+          <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>
 
         <Table>

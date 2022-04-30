@@ -59,24 +59,6 @@ export const deleteOneEvent = createAsyncThunk(
     }
   }
 );
-//  [
-//   {
-//     title: "Big Meeting",
-//     allDay: true,
-//     start: new Date(2021, 3, 0),
-//     end: new Date(2021, 3, 0),
-//   },
-//   {
-//     title: "Vacation",
-//     start: new Date(2021, 3, 7),
-//     end: new Date(2021, 6, 10),
-//   },
-//   {
-//     title: "Conference",
-//     start: new Date(2021, 3, 20),
-//     end: new Date(2021, 3, 23),
-//   },
-// ];
 
 const eventsSlice = createSlice({
   name: "events",
@@ -107,12 +89,6 @@ const eventsSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.events = action.payload;
-        // state.events = state.events.map((event) => {
-        //   event._id = action.payload.id;
-        //   event.title = action.payload.title;
-        //   event.start = new Date(action.payload.start);
-        //   event.end = new Date(action.payload.end);
-        // });
       })
       .addCase(getAllEvents.rejected, (state, action) => {
         state.isLoading = false;
@@ -133,23 +109,6 @@ const eventsSlice = createSlice({
         state.message = action.payload;
       });
   },
-  // reducers: {
-  //   addEvent: {
-  //     reducer(state, action) {
-  //       state.push(action.payload);
-  //     },
-  //     prepare(title, start, end) {
-  //       return {
-  //         payload: {
-  //           id: nanoid(),
-  //           title,
-  //           start,
-  //           end,
-  //         },
-  //       };
-  //     },
-  //   },
-  // },
 });
 
 export default eventsSlice.reducer;

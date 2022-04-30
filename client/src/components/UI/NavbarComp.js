@@ -1,10 +1,12 @@
 import "bulma/css/bulma.min.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, Navbar } from "react-bulma-companion";
+import { Navbar } from "react-bulma-companion";
 import { Link } from "react-router-dom";
-import logo from "../assets/nail-logo.png";
-import { logout, reset } from "../store/auth";
+import logo from "../../assets/nail-logo.png";
+import nail from "../../assets/nail-polish.png";
+import { logout, reset } from "../../store/auth";
+import "../../styles/mystyles.scss";
 
 const NavbarComp = () => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const NavbarComp = () => {
   return (
     <Navbar>
       <Navbar.Brand>
-        <img className="img-logo" src={logo}></img>
+        {/* <img className="img-logo" src={logo}></img> */}
         {user && (
           <>
             {" "}
@@ -43,7 +45,7 @@ const NavbarComp = () => {
 
       <Navbar.End>
         {user ? (
-          <Navbar.Item onClick={onLogout} to={onLogout} component={Link}>
+          <Navbar.Item onClick={onLogout} to="/" component={Link}>
             Logout
           </Navbar.Item>
         ) : (

@@ -2,18 +2,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { modalActions } from "../store/modal";
 import DeleteModal from "./DeleteModal";
-import {
-  selectAllEvents,
-  getAllEvents,
-  deleteOneEvent,
-  reset,
-} from "../store/events";
+import { selectAllEvents, getAllEvents, deleteOneEvent } from "../store/events";
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import AddEvent from "./AddEvent";
+import AddEvent from "./Addition Modals/AddEvent";
+import AddClient from "./Addition Modals/AddClient";
 import { Button, Buttons } from "react-bulma-companion";
 
 const locales = {
@@ -68,7 +64,9 @@ const BigCalendar = () => {
         <Button className="is-danger" onClick={openAddModalHandler}>
           Add Appointment
         </Button>
-        <Button className="is-danger">Add New Client</Button>
+        <Button className="is-danger" onClick={openAddModalHandler}>
+          Add New Client
+        </Button>
       </Buttons>
 
       <Calendar
@@ -92,6 +90,7 @@ const BigCalendar = () => {
         }}
       />
       <AddEvent isOpen={addModal} onClose={closeAddModalHandler} />
+      <AddClient isOpen={addModal} onClose={closeAddModalHandler} />
       <DeleteModal
         onYesClick={() => {
           dispatch(deleteOneEvent(chosenEvent));

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import InputComponent from "../InputComponent";
+import InputComponent from "../UI/InputComponent";
 import useInput from "../../hooks/useInput";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
@@ -9,13 +9,15 @@ import { register, reset } from "../../store/auth";
 import { useEffect } from "react";
 
 const Register = () => {
+  //definition of useNavigate and useDispatch hooks
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  //distructuring of states from redux store
   const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
-
+  //email validation
   let emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 
   useEffect(() => {
@@ -30,9 +32,9 @@ const Register = () => {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
+  //inputs distructuring for validation using custom hook useInput
   const {
     value: enteredFirstName,
-    isValid: enteredFirstNameIsValid,
     hasError: firstNameInputHasError,
     valueChangeHandler: firstNameChangeHandler,
     inputBlurHandler: firstNameBlurHandler,
@@ -40,7 +42,6 @@ const Register = () => {
 
   const {
     value: enteredLastName,
-    isValid: enteredLastNameIsValid,
     hasError: lastNameInputHasError,
     valueChangeHandler: lastNameChangeHandler,
     inputBlurHandler: lastNameBlurHandler,
@@ -48,7 +49,6 @@ const Register = () => {
 
   const {
     value: enteredEmail,
-    isValid: enteredEmailIsValid,
     hasError: emailInputHasError,
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
@@ -56,7 +56,6 @@ const Register = () => {
 
   const {
     value: enteredPassword,
-    isValid: enteredPasswordIsValid,
     hasError: passwordInputHasError,
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
@@ -64,7 +63,6 @@ const Register = () => {
 
   const {
     value: enteredPassword2,
-    isValid: enteredPassword2IsValid,
     hasError: password2InputHasError,
     valueChangeHandler: password2ChangeHandler,
     inputBlurHandler: password2BlurHandler,
@@ -75,19 +73,7 @@ const Register = () => {
     matchingPassword = false;
   }
 
-  let formIsValid = false;
-
-  if (
-    enteredFirstNameIsValid &&
-    enteredLastNameIsValid &&
-    enteredEmailIsValid &&
-    enteredPasswordIsValid &&
-    enteredPassword2IsValid &&
-    matchingPassword
-  ) {
-    formIsValid = true;
-  }
-
+  //user registration function
   const formSubmissionHandler = (event) => {
     event.preventDefault();
     if (

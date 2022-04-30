@@ -1,5 +1,5 @@
 import { Column, Panel } from "react-bulma-companion";
-import mystyles from "../styles/mystyles.scss";
+import mystyles from "../../styles/mystyles.scss";
 
 const Card = (props) => {
   return (
