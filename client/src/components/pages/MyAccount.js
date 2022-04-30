@@ -2,14 +2,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { modalActions } from "../../store/modal";
 import ChangePassword from "../ChangePassword";
 import { Panel, Label, Button } from "react-bulma-companion";
-import { Link } from "react-router-dom";
+
 import Card from "../Card";
-import { accountDetails } from "../../tests/clientSideTests";
 
 const MyAccount = () => {
   const dispatch = useDispatch();
   const addModal = useSelector((state) => state.modal.addModalOpen);
-  const { firstName, lastName, email } = accountDetails;
+  const { user } = useSelector((state) => state.auth);
+
   const closeAddModalHandler = () => {
     dispatch(modalActions.addModalClose());
   };
@@ -24,15 +24,15 @@ const MyAccount = () => {
 
         <Panel.Block>
           <Label className="mr-2 mb-0"> First Name: </Label>
-          {firstName}
+          {user.firstName}
         </Panel.Block>
         <Panel.Block>
           <Label className="mr-2 mb-0"> Last Name: </Label>
-          {lastName}
+          {user.lastName}
         </Panel.Block>
         <Panel.Block>
           <Label className="mr-2 mb-0"> E-mail Adress: </Label>
-          {email}
+          {user.email}
         </Panel.Block>
         <Panel.Block>
           <Label className="mr-2"> Password: </Label>

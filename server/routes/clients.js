@@ -56,4 +56,19 @@ router.delete("/deleteClient", (req, res) => {
   }
 });
 
+router.put("/updateClient", async (req, res) => {
+  const { phoneNumber, productPurchased } = req.body;
+
+  let result = await Client.findOneAndUpdate(phoneNumber, {
+    $push: { productsPurchased: productPurchased },
+  });
+
+  if (result) {
+    res.json(result);
+  } else {
+    res.status(400);
+    throw new Error("could not update purchased products");
+  }
+});
+
 module.exports = router;

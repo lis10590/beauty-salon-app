@@ -4,6 +4,7 @@ import {
   getClients,
   deleteClient,
   addNewClientFromCalendar,
+  updateClient,
 } from "../api/clients";
 
 const initialClientsState = {
@@ -13,6 +14,23 @@ const initialClientsState = {
   isSuccess: false,
   message: "",
 };
+
+export const purchasedProductsUpdate = createAsyncThunk(
+  "clients/updateClient",
+  async (client, thunkAPI) => {
+    try {
+      return await updateClient(client);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const clientAdditionFromCalendar = createAsyncThunk(
   "clients/newClientFromCalendar",
@@ -214,6 +232,19 @@ const clientSlice = createSlice({
         );
       })
       .addCase(deleteOneClient.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(purchasedProductsUpdate.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(purchasedProductsUpdate.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.clients.push(action.payload);
+      })
+      .addCase(purchasedProductsUpdate.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

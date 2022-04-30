@@ -6,197 +6,108 @@ import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../../styles/Register.scss";
 import { register, reset } from "../../store/auth";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+
+  const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
 
   let emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    password2: "",
-  });
-
-  const [hasError, setHasError] = useState({
-    firstName: false,
-    lastName: false,
-    email: false,
-    password: false,
-    password2: false,
-  });
-  const [isTouched, setIsTouched] = useState({
-    firstName: false,
-    lastName: false,
-    email: false,
-    password: false,
-    password2: false,
-  });
-
   useEffect(() => {
     if (isError) {
-      // toast.error(message);
       console.log(message);
     }
 
     if (isSuccess || user) {
-      navigate("/");
+      navigate("/home");
     }
 
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const onChangeFormData = (event) => {
-    const { name, value } = event.target;
+  const {
+    value: enteredFirstName,
+    isValid: enteredFirstNameIsValid,
+    hasError: firstNameInputHasError,
+    valueChangeHandler: firstNameChangeHandler,
+    inputBlurHandler: firstNameBlurHandler,
+  } = useInput((value) => value.trim() !== "");
 
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    hasErrorHandler();
-  };
+  const {
+    value: enteredLastName,
+    isValid: enteredLastNameIsValid,
+    hasError: lastNameInputHasError,
+    valueChangeHandler: lastNameChangeHandler,
+    inputBlurHandler: lastNameBlurHandler,
+  } = useInput((value) => value.trim() !== "");
 
-  const onBlurInput = (event) => {
-    const { name } = event.target;
-    setIsTouched((prevState) => ({
-      ...prevState,
-      [name]: true,
-    }));
-  };
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+  } = useInput((value) => emailRegex.test(value));
 
-  const hasErrorHandler = () => {
-    if (formData.firstName.trim() === "" && isTouched) {
-      setHasError((prevState) => ({
-        ...prevState,
-        [formData.firstName]: true,
-      }));
-    }
-    if (formData.lastName.trim() === "" && isTouched) {
-      setHasError((prevState) => ({
-        ...prevState,
-        [formData.lastName]: true,
-      }));
-    }
+  const {
+    value: enteredPassword,
+    isValid: enteredPasswordIsValid,
+    hasError: passwordInputHasError,
+    valueChangeHandler: passwordChangeHandler,
+    inputBlurHandler: passwordBlurHandler,
+  } = useInput((value) => value.length > 5);
 
-    if (emailRegex.test(formData.email) === false && isTouched) {
-      setHasError((prevState) => ({
-        ...prevState,
-        [formData.email]: true,
-      }));
-    }
-
-    if (formData.password < 5 && isTouched) {
-      setHasError((prevState) => ({
-        ...prevState,
-        [formData.password]: true,
-      }));
-    }
-
-    if (formData.password2 < 5 && isTouched) {
-      setHasError((prevState) => ({
-        ...prevState,
-        [formData.password2]: true,
-      }));
-    }
-  };
-
-  // const {
-  //   value: enteredfirstName,
-  //   isValid: enteredfirstNameIsValid,
-  //   hasError: firstNameInputHasError,
-  //   valueChangeHandler: firstNameChangeHandler,
-  //   inputBlurHandler: firstNameBlurHandler,
-  //   reset: resetfirstNameInput,
-  // } = useInput((value) => value.trim() !== "");
-
-  // const {
-  //   value: enteredlastName,
-  //   isValid: enteredlastNameIsValid,
-  //   hasError: lastNameInputHasError,
-  //   valueChangeHandler: lastNameChangeHandler,
-  //   inputBlurHandler: lastNameBlurHandler,
-  //   reset: resetlastNameInput,
-  // } = useInput((value) => value.trim() !== "");
-
-  // const {
-  //   value: enteredEmail,
-  //   isValid: enteredEmailIsValid,
-  //   hasError: emailInputHasError,
-  //   valueChangeHandler: emailChangeHandler,
-  //   inputBlurHandler: emailBlurHandler,
-  //   reset: resetEmailInput,
-  // } = useInput((value) => value.includes("@"));
-
-  // const {
-  //   value: enteredPassword,
-  //   isValid: enteredPasswordIsValid,
-  //   hasError: passwordInputHasError,
-  //   valueChangeHandler: passwordChangeHandler,
-  //   inputBlurHandler: passwordBlurHandler,
-  //   reset: resetPasswordInput,
-  // } = useInput((value) => value.length > 5);
-
-  // const {
-  //   value: enteredPassword2,
-  //   isValid: enteredPassword2IsValid,
-  //   hasError: password2InputHasError,
-  //   valueChangeHandler: password2ChangeHandler,
-  //   inputBlurHandler: password2BlurHandler,
-  //   reset: resetPassword2Input,
-  // } = useInput((value) => value.length > 5);
+  const {
+    value: enteredPassword2,
+    isValid: enteredPassword2IsValid,
+    hasError: password2InputHasError,
+    valueChangeHandler: password2ChangeHandler,
+    inputBlurHandler: password2BlurHandler,
+  } = useInput((value) => value.length > 5);
 
   let matchingPassword = true;
-  if (formData.password2 !== formData.password) {
+  if (enteredPassword2 !== enteredPassword) {
     matchingPassword = false;
   }
 
-  // let formIsValid = false;
+  let formIsValid = false;
 
-  // if (
-  //   enteredfirstNameIsValid &&
-  //   enteredlastNameIsValid &&
-  //   enteredEmailIsValid &&
-  //   enteredPasswordIsValid &&
-  //   enteredPassword2IsValid &&
-  //   matchingPassword
-  // ) {
-  //   formIsValid = true;
-  // }
+  if (
+    enteredFirstNameIsValid &&
+    enteredLastNameIsValid &&
+    enteredEmailIsValid &&
+    enteredPasswordIsValid &&
+    enteredPassword2IsValid &&
+    matchingPassword
+  ) {
+    formIsValid = true;
+  }
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
-
     if (
-      hasError.firstName ||
-      hasError.lastName ||
-      hasError.email ||
-      hasError.password ||
-      hasError.password2 ||
+      firstNameInputHasError ||
+      lastNameInputHasError ||
+      emailInputHasError ||
+      passwordInputHasError ||
+      password2InputHasError ||
       !matchingPassword
     ) {
       return;
     }
 
     const user = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      password: formData.password,
+      firstName: enteredFirstName,
+      lastName: enteredLastName,
+      email: enteredEmail,
+      password: enteredPassword,
     };
     dispatch(register(user));
-
-    // resetfirstNameInput();
-    // resetlastNameInput();
-    // resetEmailInput();
-    // resetPasswordInput();
-    // resetPassword2Input();
   };
   return (
     <form>
@@ -209,13 +120,13 @@ const Register = () => {
             inputName="firstName"
             inputType="text"
             inputSize="small"
-            inputOnChange={onChangeFormData}
-            inputOnBlur={onBlurInput}
-            inputValue={formData.firstName}
+            inputOnChange={firstNameChangeHandler}
+            inputOnBlur={firstNameBlurHandler}
+            inputValue={enteredFirstName}
             spanClassName="icon is-small is-left"
             icon={faUser}
           />
-          {hasError.firstName && (
+          {firstNameInputHasError && (
             <p className="help is-danger">First Name is required!</p>
           )}
         </Field>
@@ -227,13 +138,13 @@ const Register = () => {
             inputName="lastName"
             inputType="text"
             inputSize="small"
-            inputOnChange={onChangeFormData}
-            inputOnBlur={onBlurInput}
-            inputValue={formData.lastName}
+            inputOnChange={lastNameChangeHandler}
+            inputOnBlur={lastNameBlurHandler}
+            inputValue={enteredLastName}
             spanClassName="icon is-small is-left"
             icon={faUser}
           />
-          {hasError.lastName && (
+          {lastNameInputHasError && (
             <p className="help is-danger">Last Name is required!</p>
           )}
         </Field>
@@ -245,14 +156,14 @@ const Register = () => {
             inputName="email"
             inputType="text"
             inputSize="small"
-            inputOnChange={onChangeFormData}
-            inputOnBlur={onBlurInput}
-            inputValue={formData.email}
+            inputOnChange={emailChangeHandler}
+            inputOnBlur={emailBlurHandler}
+            inputValue={enteredEmail}
             spanClassName="icon is-small is-left"
             icon={faEnvelope}
           />
-          {hasError.email && (
-            <p className="help is-danger">Please enter a valid Email!</p>
+          {emailInputHasError && (
+            <p className="help is-danger">Enter a valid email!</p>
           )}
         </Field>
         <Field>
@@ -263,15 +174,15 @@ const Register = () => {
             inputName="password"
             inputType="password"
             inputSize="small"
-            inputOnChange={onChangeFormData}
-            inputOnBlur={onBlurInput}
-            inputValue={formData.password}
+            inputOnChange={passwordChangeHandler}
+            inputOnBlur={passwordBlurHandler}
+            inputValue={enteredPassword}
             spanClassName="icon is-small is-left"
             icon={faLock}
           />
-          {hasError.password && (
+          {passwordInputHasError && (
             <p className="help is-danger">
-              Password must have minimum 6 characters!
+              Password must be minimum 6 characters!
             </p>
           )}
         </Field>
@@ -283,29 +194,29 @@ const Register = () => {
             inputName="password2"
             inputType="password"
             inputSize="small"
-            inputOnChange={onChangeFormData}
-            inputOnBlur={onBlurInput}
-            inputValue={formData.password2}
+            inputOnChange={password2ChangeHandler}
+            inputOnBlur={password2BlurHandler}
+            inputValue={enteredPassword2}
             spanClassName="icon is-small is-left"
             icon={faLock}
           />
 
-          {hasError.password2 && (
+          {password2InputHasError && (
             <p className="help is-danger">
-              Password must have minimum 6 characters!
+              Password must be minimum 6 characters!
             </p>
           )}
-          {!matchingPassword && !hasError.password && (
+          {!matchingPassword && (
             <p className="help is-danger">Password does not match!</p>
           )}
         </Field>
-        <Field>
-          Already Registered? Click <a href={() => navigate("/login")}>Here</a>
+        <Field component={Link} to="/login">
+          Already Registered? Click Here
         </Field>
         <Field>
           <Control>
             <Button
-              className="button is-primary"
+              className="button is-danger mt-2"
               onClick={formSubmissionHandler}
             >
               Register

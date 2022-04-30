@@ -6,7 +6,9 @@ import {
   selectAllTreatmentHistories,
 } from "../store/treatmentHistory";
 import Card from "./Card";
+import { modalActions } from "../store/modal";
 import AddAndDelete from "./AddAndDelete";
+import AddPurchasedProducts from "./AddPurchasedProducts";
 import { Label, Panel } from "react-bulma-companion";
 import { useParams } from "react-router-dom";
 import styles from "../styles/ClientCard.scss";
@@ -16,6 +18,7 @@ const ClientCard = () => {
   const dispatch = useDispatch();
   const clients = useSelector(selectAllClients);
   const treatmentHistories = useSelector(selectAllTreatmentHistories);
+  const addModal = useSelector((state) => state.modal.addModalOpen);
 
   let [client] = clients.filter((client) => clientId === client._id);
 
@@ -32,37 +35,61 @@ const ClientCard = () => {
     }
   }, [dispatch, client]);
 
-  return (
-    <Card>
-      <Panel.Heading>{client ? client.fullName : null}</Panel.Heading>
-      <Panel.Block>
-        <Label className="mr-2 mb-0">Phone Number:</Label>
-        {client ? client.phoneNumber : null}
-      </Panel.Block>
-      <Panel.Block>
-        <Label className="mr-2 mb-0">Treatment History:</Label>
-      </Panel.Block>
-      {treatmentHistories
-        ? treatmentHistories.map((treatment) => {
-            const treatmentDate = new Date(treatment.date).toLocaleDateString(
-              "en-US"
-            );
-            return (
-              <ul>
-                <li>{treatment.treatmentName + " on " + treatmentDate}</li>
-              </ul>
-            );
-          })
-        : null}
+  const closeAddModalHandler = () => {
+    dispatch(modalActions.addModalClose());
+  };
 
-      <Panel.Block>
-        <div>
-          <AddAndDelete className="products-button" />
-        </div>
-        <Label className="mr-2 mb-0">Products Purchased:</Label>
-        {client ? client.productsPurchased : null}
-      </Panel.Block>
-    </Card>
+  const openAddModalHandler = () => {
+    dispatch(modalActions.addModalOpen());
+  };
+
+  return (
+    <>
+      <Card>
+        <Panel.Heading>{client ? client.fullName : null}</Panel.Heading>
+        <Panel.Block>
+          <Label className="mr-2 mb-0">Phone Number:</Label>
+          {client ? client.phoneNumber : null}
+        </Panel.Block>
+        <Panel.Block>
+          <Label className="mr-2 mb-0">Treatment History:</Label>
+        </Panel.Block>
+        {treatmentHistories
+          ? treatmentHistories.map((treatment) => {
+              const treatmentDate = new Date(treatment.date).toLocaleDateString(
+                "en-US"
+              );
+              return (
+                <ul>
+                  <li>{treatment.treatmentName + " on " + treatmentDate}</li>
+                </ul>
+              );
+            })
+          : null}
+
+        <Panel.Block>
+          <div>
+            <AddAndDelete
+              onAddButton={openAddModalHandler}
+              className="products-button"
+            />
+          </div>
+          <Label className="mr-2 mb-0">Products Purchased:</Label>
+        </Panel.Block>
+        <ul>
+          {client
+            ? client.productsPurchased.map((product) => {
+                return <li>{product}</li>;
+              })
+            : null}
+        </ul>
+      </Card>
+      <AddPurchasedProducts
+        client={client ? client.phoneNumber : null}
+        isOpen={addModal}
+        onClose={closeAddModalHandler}
+      />
+    </>
   );
 };
 

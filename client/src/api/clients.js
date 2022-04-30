@@ -49,3 +49,12 @@ export const deleteClient = async (clientId) => {
     console.error(err);
   }
 };
+
+export const updateClient = async (client) => {
+  try {
+    const res = await axios.put(`${apiUrl}/api/clients/updateClient`, client);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

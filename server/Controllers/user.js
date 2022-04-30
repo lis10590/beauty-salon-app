@@ -4,8 +4,8 @@ const asyncHandler = require("express-async-handler");
 const { User } = require("../database/schemas");
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { fname, lname, email, password } = req.body;
-  if (!fname || !lname || !email || !password) {
+  const { firstName, lastName, email, password } = req.body;
+  if (!firstName || !lastName || !email || !password) {
     res.status(400);
     throw new Error("Please fill in all the fields");
   }
@@ -24,8 +24,8 @@ const registerUser = asyncHandler(async (req, res) => {
   //Create user
 
   const user = await User.create({
-    fname,
-    lname,
+    firstName,
+    lastName,
     email,
     password: hashedPassword,
   });
@@ -33,8 +33,8 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       _id: user.id,
-      fname: user.fname,
-      lname: user.lname,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -50,8 +50,8 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user.id,
-      fname: user.fname,
-      lname: user.lname,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -71,6 +71,41 @@ const generateToken = (id) => {
   });
 };
 
+const changePassword = asyncHandler(async (req, res) => {
+  console.log(req.body);
+  const { email, oldPassword, newPassword } = req.body;
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(newPassword, salt);
+  console.log(hashedPassword);
+  const user = await User.findOne({ email });
+  console.log(user);
+  if (user && (await bcrypt.compare(oldPassword, user.password))) {
+    User.findOneAndReplace(
+      { email },
+      { password: hashedPassword },
+      function (err, result) {
+        if (err) {
+          res.status(400);
+          throw new Error(err);
+        }
+
+        res.json({
+          _id: result.id,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          email: result.email,
+          token: generateToken(result._id),
+        });
+      }
+    );
+  } else {
+    res.status(400);
+    throw new Error("Old password doesn't match the passwored saved in db");
+  }
+});
+
 module.exports.registerUser = registerUser;
 module.exports.loginUser = loginUser;
 module.exports.getUser = getUser;
+module.exports.changePassword = changePassword;

@@ -1,21 +1,74 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import InputComponent from "./InputComponent";
+import useInput from "../hooks/useInput";
 import styles from "../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
-
+import { updatePassword, selectUser } from "../store/user";
 const ChangePassword = (props) => {
-  const [password, setPassword] = useState({
-    oldPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  // const [passwordObject, setPasswordObject] = useState({
+  //   oldPassword: "",
+  //   newPassword: "",
+  //   confirmPassword: "",
+  // });
 
-  const onChangePaswwordHandler = (event) => {
-    const { name, value } = event.target;
-    setPassword((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const {
+    value: oldPassword,
+    isValid: oldPasswordIsValid,
+    hasError: oldPasswordInputHasError,
+    valueChangeHandler: oldPasswordChangeHandler,
+    inputBlurHandler: oldPasswordBlurHandler,
+  } = useInput((value) => value.length > 5);
+
+  const {
+    value: newPassword,
+    isValid: newPasswordIsValid,
+    hasError: newPasswordInputHasError,
+    valueChangeHandler: newPasswordChangeHandler,
+    inputBlurHandler: newPasswordBlurHandler,
+  } = useInput((value) => value.length > 5);
+
+  const {
+    value: confirmPassword,
+    isValid: confirmPasswordIsValid,
+    hasError: confirmPasswordInputHasError,
+    valueChangeHandler: confirmPasswordChangeHandler,
+    inputBlurHandler: confirmPasswordBlurHandler,
+  } = useInput((value) => value.length > 5);
+
+  // const onChangePaswwordHandler = (event) => {
+  //   const { name, value } = event.target;
+  //   setPasswordObject((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // };
+
+  let matchingPassword = true;
+  if (newPassword !== confirmPassword) {
+    matchingPassword = false;
+  }
+
+  const onSubmitHandler = () => {
+    if (
+      oldPasswordInputHasError ||
+      newPasswordInputHasError ||
+      confirmPasswordInputHasError
+    ) {
+      return;
+    }
+    const passwords = {
+      oldPassword,
+      newPassword,
+      confirmPassword,
+      email: user.email,
+    };
+
+    console.log(passwords);
+
+    // dispatch(updatePassword(passwords));
   };
 
   return (
@@ -33,9 +86,16 @@ const ChangePassword = (props) => {
               inputName="oldPassword"
               inputType="password"
               inputSize="small"
-              inputOnChange={onChangePaswwordHandler}
-              inputValue={password.oldPassword}
+              inputOnChange={oldPasswordChangeHandler}
+              inputOnBlur={oldPasswordBlurHandler}
+              inputValue={oldPassword}
             />
+
+            {oldPasswordInputHasError && (
+              <p className="help is-danger">
+                Password must be minimum 6 characters!
+              </p>
+            )}
 
             <InputComponent
               labelSize="small"
@@ -43,9 +103,15 @@ const ChangePassword = (props) => {
               inputName="newPassword"
               inputType="password"
               inputSize="small"
-              inputOnChange={onChangePaswwordHandler}
-              inputValue={password.newPassword}
+              inputOnChange={newPasswordChangeHandler}
+              inputOnBlur={newPasswordBlurHandler}
+              inputValue={newPassword}
             />
+            {newPasswordInputHasError && (
+              <p className="help is-danger">
+                Password must be minimum 6 characters!
+              </p>
+            )}
 
             <InputComponent
               labelSize="small"
@@ -53,18 +119,26 @@ const ChangePassword = (props) => {
               inputName="confirmPassword"
               inputType="password"
               inputSize="small"
-              inputOnChange={onChangePaswwordHandler}
-              inputValue={password.confirmPassword}
+              inputOnChange={confirmPasswordChangeHandler}
+              inputOnBlur={confirmPasswordBlurHandler}
+              inputValue={confirmPassword}
             />
+
+            {confirmPasswordInputHasError && (
+              <p className="help is-danger">
+                Password must be minimum 6 characters!
+              </p>
+            )}
+
+            {!matchingPassword && (
+              <p className="help is-danger">Password does not match!</p>
+            )}
 
             <Button
               disabled={
-                !password.oldPassword ||
-                !password.newPassword ||
-                !password.confirmPassword
-                  ? true
-                  : false
+                !oldPassword || !newPassword || !confirmPassword ? true : false
               }
+              onClick={onSubmitHandler}
               className="button is-danger is-small mt-3"
             >
               Change Password

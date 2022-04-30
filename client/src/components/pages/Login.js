@@ -1,23 +1,42 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import InputComponent from "../InputComponent";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../../styles/Login.scss";
-import { login } from "../../store/auth";
+import { login, reset } from "../../store/auth";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { user, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  let emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+
+  useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+
+    if (isSuccess || user) {
+      navigate("/home");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
     hasError: emailInputHasError,
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
-    reset: resetEmailInput,
-  } = useInput((value) => value.includes("@"));
+  } = useInput((value) => emailRegex.test(value));
 
   const {
     value: enteredPassword,
@@ -25,13 +44,18 @@ const Login = () => {
     hasError: passwordInputHasError,
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
-    reset: resetPasswordInput,
   } = useInput((value) => value.length > 5);
+
+  let formIsValid = false;
+
+  if (enteredEmailIsValid && enteredPasswordIsValid) {
+    formIsValid = true;
+  }
 
   const loginHandler = (event) => {
     event.preventDefault();
 
-    if (!enteredEmailIsValid || !enteredPasswordIsValid) {
+    if (emailInputHasError || passwordInputHasError) {
       return;
     }
 
@@ -40,11 +64,6 @@ const Login = () => {
       password: enteredPassword,
     };
     dispatch(login(user));
-
-    navigate("../home");
-
-    resetEmailInput();
-    resetPasswordInput();
   };
   return (
     <Box className="login">
@@ -89,13 +108,13 @@ const Login = () => {
         )}
       </Field>
 
-      <Field>
-        Not Registered Yet? Click <a href="/register">Here</a>
+      <Field component={Link} to="/register">
+        Not Registered Yet? Click Here
       </Field>
 
       <Field>
         <Control>
-          <Button className="button is-primary" onClick={loginHandler}>
+          <Button className="button is-danger mt-2" onClick={loginHandler}>
             Login
           </Button>
         </Control>
