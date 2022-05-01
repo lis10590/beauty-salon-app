@@ -10,6 +10,8 @@ import Clients from "./components/pages/Clients";
 import Products from "./components/pages/Products";
 import Treatments from "./components/pages/Treatments";
 import ClientCard from "./components/ClientCard";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "bulma/css/bulma.min.css";
 import "react-datetime/css/react-datetime.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -31,6 +33,7 @@ function App() {
         <Route path="products" element={<Products />} />
         <Route path="treatments" element={<Treatments />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

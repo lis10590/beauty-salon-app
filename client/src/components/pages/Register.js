@@ -7,6 +7,7 @@ import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../../styles/Register.scss";
 import { register, reset } from "../../store/auth";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Register = () => {
   //definition of useNavigate and useDispatch hooks
@@ -22,7 +23,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
 
     if (isSuccess || user) {

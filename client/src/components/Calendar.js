@@ -9,7 +9,6 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import AddEvent from "./Addition Modals/AddEvent";
-import AddClient from "./Addition Modals/AddClient";
 import { Button, Buttons } from "react-bulma-companion";
 
 const locales = {
@@ -71,15 +70,11 @@ const BigCalendar = () => {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        onShowMore={events}
         style={{
           width: 900,
           height: 500,
           marginTop: "50px",
           marginLeft: 190,
-        }}
-        onSelectSlot={(slotInfo) => {
-          console.log(slotInfo);
         }}
         selectable
         onSelectEvent={(event) => {

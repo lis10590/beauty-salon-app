@@ -7,6 +7,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Control, Field, Box, Button } from "react-bulma-companion";
 import "../../styles/Login.scss";
 import { login, reset } from "../../store/auth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   //definition of useNavigate and useDispatch hooks
@@ -23,7 +24,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message);
     }
 
     if (isSuccess || user) {

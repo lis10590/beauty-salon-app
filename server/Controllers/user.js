@@ -13,7 +13,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
-    res.status(400);
+    res.status(400).send({ message: "User already exists" });
     throw new Error("User already exists");
   }
 
@@ -56,7 +56,7 @@ const loginUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400);
+    res.status(400).send({ message: "Wrong email or password!" });
     throw new Error("Invalid credentials");
   }
 });

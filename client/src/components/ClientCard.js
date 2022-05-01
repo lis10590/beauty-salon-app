@@ -27,7 +27,7 @@ const ClientCard = () => {
     if (client) {
       dispatch(getAllTreatmentHistoriesByName(client.fullName));
     }
-  }, [dispatch]);
+  }, [dispatch, client]);
 
   useEffect(() => {
     if (client) {
