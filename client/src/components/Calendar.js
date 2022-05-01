@@ -1,48 +1,98 @@
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import { useState, useRef } from "react";
-import { Button } from "react-bulma-companion";
-import AddEvent from "./AddEvent";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { modalActions } from "../store/modal";
+import DeleteModal from "./DeleteModal";
+import { selectAllEvents, getAllEvents, deleteOneEvent } from "../store/events";
+import format from "date-fns/format";
+import getDay from "date-fns/getDay";
+import parse from "date-fns/parse";
+import startOfWeek from "date-fns/startOfWeek";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import AddEvent from "./Addition Modals/AddEvent";
+import { Button, Buttons } from "react-bulma-companion";
 
-const Calendar = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+const locales = {
+  "en-US": require("date-fns/locale/en-US"),
+};
 
-  const calendarRef = useRef();
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
 
-  const closeModalHandler = () => {
-    setModalOpen(false);
+const BigCalendar = () => {
+  const dispatch = useDispatch();
+  const [chosenEvent, setChosenEvent] = useState("");
+
+  const saveChosenEvent = (event) => {
+    setChosenEvent(event._id);
+
+    openDeleteModalHandler();
   };
 
-  const openModalHandler = () => {
-    setModalOpen(true);
+  const addModal = useSelector((state) => state.modal.addModalOpen);
+  const deleteModal = useSelector((state) => state.modal.deleteModalOpen);
+  const events = useSelector(selectAllEvents);
+
+  useEffect(() => {
+    dispatch(getAllEvents());
+  }, [dispatch]);
+
+  const closeAddModalHandler = () => {
+    dispatch(modalActions.addModalClose());
   };
 
-  const onEventAddedHandler = (event) => {
-    let calendarApi = calendarRef.current.getApi();
-    console.log(event);
-    calendarApi.addEvent(event);
+  const openAddModalHandler = () => {
+    dispatch(modalActions.addModalOpen());
+  };
+
+  const openDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalOpen());
+  };
+
+  const closeDeleteModalHandler = () => {
+    dispatch(modalActions.deleteModalClose());
   };
 
   return (
-    <div>
-      <Button className="button is-primary" onClick={openModalHandler}>
-        Add Event
-      </Button>
-      <div style={{ position: "relative", zIndex: 0 }}>
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          ref={calendarRef}
-        />
-      </div>
-      <AddEvent
-        isOpen={modalOpen}
-        onClose={closeModalHandler}
-        onEventAdded={(event) => onEventAddedHandler(event)}
+    <>
+      <Buttons className="is-justify-content-center">
+        <Button className="is-danger" onClick={openAddModalHandler}>
+          Add Appointment
+        </Button>
+      </Buttons>
+
+      <Calendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        style={{
+          width: 900,
+          height: 500,
+          marginTop: "50px",
+          marginLeft: 190,
+        }}
+        selectable
+        onSelectEvent={(event) => {
+          saveChosenEvent(event);
+        }}
       />
-    </div>
+      <AddEvent isOpen={addModal} onClose={closeAddModalHandler} />
+
+      <DeleteModal
+        onYesClick={() => {
+          dispatch(deleteOneEvent(chosenEvent));
+          dispatch(modalActions.deleteModalClose());
+        }}
+        onNoClick={closeDeleteModalHandler}
+        isOpen={deleteModal}
+        onClose={closeDeleteModalHandler}
+      />
+    </>
   );
 };
-
-export default Calendar;
+export default BigCalendar;

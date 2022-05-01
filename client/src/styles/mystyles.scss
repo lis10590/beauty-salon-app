@@ -1,0 +1,31 @@
+body,
+html {
+  background-image: url("../assets/background2.jpg");
+  background-size: cover;
+}
+
+.modal-card-head {
+  background-color: #f14668;
+}
+
+.modal-card-body {
+  height: 20rem;
+}
+
+.modal-card-body-calendar {
+  height: 40rem;
+}
+
+.delete-button:hover {
+  color: gray;
+  cursor: pointer;
+}
+
+.card-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+#app-navbar {
+  background-color: #ffc0d3;
+}
