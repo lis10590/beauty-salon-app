@@ -1,3 +1,9 @@
+body,
+html {
+  background-image: url("../assets/background2.jpg");
+  background-size: cover;
+}
+
 .modal-card-head {
   background-color: #f14668;
 }
@@ -18,4 +24,8 @@
 .card-panel {
   display: flex;
   flex-direction: column;
+}
+
+#app-navbar {
+  background-color: #ffc0d3;
 }

@@ -59,9 +59,12 @@ router.delete("/deleteClient", (req, res) => {
 router.put("/updateClient", async (req, res) => {
   const { phoneNumber, productPurchased } = req.body;
 
-  let result = await Client.findOneAndUpdate(phoneNumber, {
-    $push: { productsPurchased: productPurchased },
-  });
+  let result = await Client.findOneAndUpdate(
+    { phoneNumber: phoneNumber },
+    {
+      $push: { productsPurchased: productPurchased },
+    }
+  );
 
   if (result) {
     res.json(result);

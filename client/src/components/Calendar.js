@@ -64,9 +64,6 @@ const BigCalendar = () => {
         <Button className="is-danger" onClick={openAddModalHandler}>
           Add Appointment
         </Button>
-        <Button className="is-danger" onClick={openAddModalHandler}>
-          Add New Client
-        </Button>
       </Buttons>
 
       <Calendar
@@ -79,7 +76,7 @@ const BigCalendar = () => {
           width: 900,
           height: 500,
           marginTop: "50px",
-          marginLeft: 250,
+          marginLeft: 190,
         }}
         onSelectSlot={(slotInfo) => {
           console.log(slotInfo);
@@ -90,7 +87,7 @@ const BigCalendar = () => {
         }}
       />
       <AddEvent isOpen={addModal} onClose={closeAddModalHandler} />
-      <AddClient isOpen={addModal} onClose={closeAddModalHandler} />
+
       <DeleteModal
         onYesClick={() => {
           dispatch(deleteOneEvent(chosenEvent));

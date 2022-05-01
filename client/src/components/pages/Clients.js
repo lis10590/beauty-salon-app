@@ -13,6 +13,7 @@ import Card from "../UI/Card";
 import AddClient from "../Addition Modals/AddClient";
 import DeleteModal from "../DeleteModal";
 import DeleteButton from "../UI/DeleteButton";
+import "../../styles/mystyles.scss";
 
 const Clients = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Clients = () => {
   return (
     <div>
       <Card>
-        <Panel.Heading>
+        <Panel.Heading className="p-heading">
           Clients
           <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>

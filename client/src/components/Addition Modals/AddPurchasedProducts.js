@@ -31,6 +31,7 @@ const AddPurchasedProducts = (props) => {
   };
 
   const onSubmitProduct = () => {
+    console.log(props.client);
     const object = {
       phoneNumber: props.client,
       productPurchased: selectedProduct,

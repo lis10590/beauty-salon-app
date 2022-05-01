@@ -3,10 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "react-bulma-companion";
 import { Link } from "react-router-dom";
-import logo from "../../assets/nail-logo.png";
-import nail from "../../assets/nail-polish.png";
 import { logout, reset } from "../../store/auth";
-import "../../styles/mystyles.scss";
+import mystyles from "../../styles/mystyles.scss";
 
 const NavbarComp = () => {
   const navigate = useNavigate();
@@ -18,9 +16,8 @@ const NavbarComp = () => {
     navigate("/");
   };
   return (
-    <Navbar>
+    <Navbar className="mb-6" id="app-navbar">
       <Navbar.Brand>
-        {/* <img className="img-logo" src={logo}></img> */}
         {user && (
           <>
             {" "}
