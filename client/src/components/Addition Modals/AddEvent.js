@@ -16,7 +16,24 @@ const AddEvent = (props) => {
     start: "",
     end: "",
   });
+  const [titleIsTouched, setTitleIsTouched] = useState(false);
+  const [fullNameIsTouched, setFullNameIsTouched] = useState(false);
+  const [phoneNumberIsTouched, setPhoneNumberIsTouched] = useState(false);
 
+  const titleBlurHandler = () => {
+    setTitleIsTouched(true);
+  };
+  const fullNameBlurHandler = () => {
+    setFullNameIsTouched(true);
+  };
+
+  const phoneNumberBlurHandler = () => {
+    setPhoneNumberIsTouched(true);
+  };
+
+  let fullNameRegex = new RegExp("[A-Za-z]+\\s[A-Za-z]{2,}");
+  let phoneNumberRegex = new RegExp("^[0][5][0-9]{8}");
+  let titleRegex = new RegExp("[A-Za-z]{2,}");
   const dispatch = useDispatch();
   const onChangeEventHandler = (event) => {
     const { name, value } = event.target;
@@ -65,8 +82,12 @@ const AddEvent = (props) => {
               inputType="text"
               inputSize="small"
               inputOnChange={onChangeEventHandler}
+              inputOnBlur={titleBlurHandler}
               inputValue={newEvent.title}
             />
+            {!titleRegex.test(newEvent.title) && titleIsTouched && (
+              <p className="help is-danger">Treatment Details are invalid!</p>
+            )}
             <InputComponent
               labelSize="small"
               labelContent="Client Name"
@@ -74,8 +95,12 @@ const AddEvent = (props) => {
               inputType="text"
               inputSize="small"
               inputOnChange={onChangeEventHandler}
+              inputOnBlur={fullNameBlurHandler}
               inputValue={newEvent.fullName}
             />
+            {!fullNameRegex.test(newEvent.fullName) && fullNameIsTouched && (
+              <p className="help is-danger">Full Name is invalid!</p>
+            )}
             <InputComponent
               labelSize="small"
               labelContent="Phone Number"
@@ -83,8 +108,13 @@ const AddEvent = (props) => {
               inputType="tel"
               inputSize="small"
               inputOnChange={onChangeEventHandler}
+              inputOnBlur={phoneNumberBlurHandler}
               inputValue={newEvent.phoneNumber}
             />
+            {!phoneNumberRegex.test(newEvent.phoneNumber) &&
+              phoneNumberIsTouched && (
+                <p className="help is-danger">phone Number is invalid!</p>
+              )}
 
             <DatePicker
               placeholderText="Start Date"

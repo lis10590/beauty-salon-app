@@ -1,48 +1,79 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { productAddition } from "../../store/products";
 import InputComponent from "../UI/InputComponent";
+import useInput from "../../hooks/useInput";
 import styles from "../../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
 
 const AddProduct = (props) => {
-  const [product, setProduct] = useState({
-    productName: "",
-    manufacturer: "",
-    productType: "",
-    productGroup: "",
-    price: "",
-  });
+  let inputRegex = new RegExp("[A-Za-z]{2,}");
+  let priceRegex = new RegExp("[0-9]");
 
-  const onChangeProductHandler = (event) => {
-    const { name, value } = event.target;
-    setProduct((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const {
+    value: productName,
+    hasError: productNameInputHasError,
+    valueChangeHandler: productNameChangeHandler,
+    inputBlurHandler: productNameBlurHandler,
+    reset: resetProductName,
+  } = useInput((value) => inputRegex.test(value));
+
+  const {
+    value: manufacturer,
+    hasError: manufacturerInputHasError,
+    valueChangeHandler: manufacturerChangeHandler,
+    inputBlurHandler: manufacturerBlurHandler,
+    reset: resetManufacturer,
+  } = useInput((value) => inputRegex.test(value));
+  const {
+    value: productGroup,
+    hasError: productGroupInputHasError,
+    valueChangeHandler: productGroupChangeHandler,
+    inputBlurHandler: productGroupBlurHandler,
+    reset: resetProductGroup,
+  } = useInput((value) => inputRegex.test(value));
+
+  const {
+    value: productType,
+    hasError: productTypeInputHasError,
+    valueChangeHandler: productTypeChangeHandler,
+    inputBlurHandler: productTypeBlurHandler,
+    reset: resetProductType,
+  } = useInput((value) => inputRegex.test(value));
+
+  const {
+    value: price,
+    hasError: priceInputHasError,
+    valueChangeHandler: priceChangeHandler,
+    inputBlurHandler: priceBlurHandler,
+    reset: resetPrice,
+  } = useInput((value) => priceRegex.test(value));
 
   const dispatch = useDispatch();
 
   const addNewProductHandler = (event) => {
     event.preventDefault();
     if (
-      product.productName &&
-      product.manufacturer &&
-      product.productType &&
-      product.productGroup &&
-      product.price
+      !productNameInputHasError &&
+      !manufacturerInputHasError &&
+      !productTypeInputHasError &&
+      !productGroupInputHasError &&
+      !priceInputHasError
     ) {
+      const product = {
+        productName,
+        manufacturer,
+        productType,
+        productGroup,
+        price,
+      };
       dispatch(productAddition(product));
 
       props.onClose();
-      setProduct({
-        productName: "",
-        manufacturer: "",
-        productType: "",
-        productGroup: "",
-        price: "",
-      });
+      resetProductName();
+      resetManufacturer();
+      resetProductType();
+      resetProductGroup();
+      resetPrice();
     }
   };
   return (
@@ -60,27 +91,39 @@ const AddProduct = (props) => {
               inputName="productName"
               inputType="text"
               inputSize="small"
-              inputOnChange={onChangeProductHandler}
-              inputValue={product.productName}
+              inputOnChange={productNameChangeHandler}
+              inputOnBlur={productNameBlurHandler}
+              inputValue={productName}
             />
+            {productNameInputHasError && (
+              <p className="help is-danger">Product Name is invalid!</p>
+            )}
             <InputComponent
               labelSize="small"
               labelContent="Manufacturer"
               inputName="manufacturer"
               inputType="text"
               inputSize="small"
-              inputOnChange={onChangeProductHandler}
-              inputValue={product.manufacturer}
+              inputOnChange={manufacturerChangeHandler}
+              inputOnBlur={manufacturerBlurHandler}
+              inputValue={manufacturer}
             />
+            {manufacturerInputHasError && (
+              <p className="help is-danger">Manufacturer is invalid!</p>
+            )}
             <InputComponent
               labelSize="small"
               labelContent="Product Type"
               inputName="productType"
               inputType="text"
               inputSize="small"
-              inputOnChange={onChangeProductHandler}
-              inputValue={product.productType}
+              inputOnChange={productTypeChangeHandler}
+              inputOnBlur={productTypeBlurHandler}
+              inputValue={productType}
             />
+            {productTypeInputHasError && (
+              <p className="help is-danger">Product Type is invalid!</p>
+            )}
 
             <InputComponent
               labelSize="small"
@@ -88,27 +131,33 @@ const AddProduct = (props) => {
               inputName="productGroup"
               inputType="text"
               inputSize="small"
-              inputOnChange={onChangeProductHandler}
-              inputValue={product.productGroup}
+              inputOnChange={productGroupChangeHandler}
+              inputOnBlur={productGroupBlurHandler}
+              inputValue={productGroup}
             />
-
+            {productGroupInputHasError && (
+              <p className="help is-danger">Product Group is invalid!</p>
+            )}
             <InputComponent
               labelSize="small"
               labelContent="Price (ILS)"
               inputName="price"
               inputType="text"
               inputSize="small"
-              inputOnChange={onChangeProductHandler}
-              inputValue={product.price}
+              inputOnChange={priceChangeHandler}
+              inputOnBlur={priceBlurHandler}
+              inputValue={price}
             />
-
+            {priceInputHasError && (
+              <p className="help is-danger">Price is invalid!</p>
+            )}
             <Button
               disabled={
-                !product.productName ||
-                !product.manufacturer ||
-                !product.productType ||
-                !product.productGroup ||
-                !product.price
+                productNameInputHasError ||
+                manufacturerInputHasError ||
+                productTypeInputHasError ||
+                productGroupInputHasError ||
+                priceInputHasError
                   ? true
                   : false
               }

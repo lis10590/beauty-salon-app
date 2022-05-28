@@ -1,35 +1,43 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { treatmentAddition } from "../../store/treatments";
 import InputComponent from "../UI/InputComponent";
+import useInput from "../../hooks/useInput";
 import styles from "../../styles/mystyles.scss";
 import { Modal, Button, Delete } from "react-bulma-companion";
 
 const AddTreatment = (props) => {
-  const [treatment, setTreatment] = useState({
-    treatmentName: "",
-    price: "",
-  });
+  let treatmentRegex = new RegExp("[A-Za-z]{2,}");
+  let priceRegex = new RegExp("[0-9]");
 
-  const onChangeTreatmentHandler = (event) => {
-    const { name, value } = event.target;
-    setTreatment((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const {
+    value: treatmentName,
+    hasError: treatmentNameInputHasError,
+    valueChangeHandler: treatmentNameChangeHandler,
+    inputBlurHandler: treatmentNameBlurHandler,
+    reset: resetTreatmentName,
+  } = useInput((value) => treatmentRegex.test(value));
+
+  const {
+    value: price,
+    hasError: priceInputHasError,
+    valueChangeHandler: priceChangeHandler,
+    inputBlurHandler: priceBlurHandler,
+    reset: resetPrice,
+  } = useInput((value) => priceRegex.test(value));
 
   const dispatch = useDispatch();
 
   const addNewTreatmentHandler = (event) => {
     event.preventDefault();
-    if (treatment.treatmentName && treatment.price) {
+    if (!treatmentNameInputHasError && !priceInputHasError) {
+      const treatment = {
+        treatmentName,
+        price,
+      };
       dispatch(treatmentAddition(treatment));
       props.onClose();
-      setTreatment({
-        treatmentName: "",
-        price: "",
-      });
+      resetTreatmentName();
+      resetPrice();
     }
   };
   return (
@@ -47,23 +55,29 @@ const AddTreatment = (props) => {
               inputName="treatmentName"
               inputType="text"
               inputSize="small"
-              inputOnChange={onChangeTreatmentHandler}
-              inputValue={treatment.productName}
+              inputOnChange={treatmentNameChangeHandler}
+              inputOnBlur={treatmentNameBlurHandler}
+              inputValue={treatmentName}
             />
-
+            {treatmentNameInputHasError && (
+              <p className="help is-danger">Treatment Name is invalid!</p>
+            )}
             <InputComponent
               labelSize="small"
               labelContent="Price (ILS)"
               inputName="price"
               inputType="text"
               inputSize="small"
-              inputOnChange={onChangeTreatmentHandler}
-              inputValue={treatment.price}
+              inputOnChange={priceChangeHandler}
+              inputOnBlur={priceBlurHandler}
+              inputValue={price}
             />
-
+            {priceInputHasError && (
+              <p className="help is-danger">Price is invalid!</p>
+            )}
             <Button
               disabled={
-                !treatment.treatmentName || !treatment.price ? true : false
+                treatmentNameInputHasError || priceInputHasError ? true : false
               }
               className="button is-danger is-small mt-3"
               onClick={addNewTreatmentHandler}

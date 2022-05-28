@@ -34,7 +34,7 @@ router.get("/getTreatmentHistory", (req, res) => {
 
 router.get("/getTreatmentHistoryByName", (req, res) => {
   const treatmentHistory = req.query;
-  console.log(req.query);
+  // console.log(req.query);
   TreatmentHistory.find(
     { fullName: treatmentHistory.fullName },
     (err, treatmentHistoryList) => {
