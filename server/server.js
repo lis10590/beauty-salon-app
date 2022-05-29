@@ -6,7 +6,7 @@ const router = express.Router();
 const routes = require("./routes");
 require("./database");
 
-const port = 3001;
+const PORT = process.env.PORT || 3001;
 const origin = "http://localhost:3000";
 
 app.use(
@@ -17,8 +17,10 @@ app.use(
 );
 
 app.use(express.json());
-
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 app.use("/", routes);
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });

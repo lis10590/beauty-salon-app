@@ -8,7 +8,10 @@ const options = {
 };
 
 const database = mongoose
-  .connect("mongodb://127.0.0.1:27017/beauty-salon", options)
+  .connect(
+    process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/beauty-salon",
+    options
+  )
   .then(() => console.log("Connected to database."))
   .catch((err) => console.error("Error connecting to database:", err.message));
 
