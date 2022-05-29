@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "build": "cd ../client && npm run build",
-    "instal-client": "cd ../client && npm install",
-    "heroku-postbuild": "npm run instal-client && npm run build",
-    "client": "cd ../client && npm start"
+    "server": "nodemon server.js",
+    "client-install": "npm install --prefix client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "client": "npm start --prefix client"
   },
   "keywords": [],
   "author": "",
