@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.API_URL;
+const apiUrl = process.env.API_URL || "";
 
 //addition of a new client from clients page
 export const addNewClient = async (client) => {

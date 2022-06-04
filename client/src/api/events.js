@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.API_URL;
+const apiUrl = process.env.API_URL || "";
 
 //helper function to format date
 const transformData = (response) => {
