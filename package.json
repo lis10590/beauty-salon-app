@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This application is designed to give a solution for a beautician and/or a manicurist to easy-to-use client management.",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
