@@ -20,7 +20,9 @@ const MyAccount = () => {
   return (
     <>
       <Card>
-        <Panel.Heading>Personal Info</Panel.Heading>
+        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
+          Personal Info
+        </Panel.Heading>
 
         <Panel.Block>
           <Label className="mr-2 mb-0"> First Name: </Label>

@@ -55,7 +55,7 @@ const Products = () => {
   return (
     <div>
       <Card>
-        <Panel.Heading>
+        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
           Product List
           <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>

@@ -44,7 +44,10 @@ const AddTreatment = (props) => {
     <Modal active={props.isOpen}>
       <Modal.Background>
         <Modal.Card className="mt-6">
-          <Modal.CardHead className="modal-card-head">
+          <Modal.CardHead
+            style={{ backgroundColor: "#ffc0d3" }}
+            className="modal-card-head"
+          >
             <Modal.CardTitle>Add Treatment</Modal.CardTitle>
             <Delete className="delete" onClick={props.onClose}></Delete>
           </Modal.CardHead>

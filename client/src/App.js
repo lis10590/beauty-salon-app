@@ -16,7 +16,6 @@ import "bulma/css/bulma.min.css";
 import "react-datetime/css/react-datetime.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./App.sass";
 
 function App() {
   return (

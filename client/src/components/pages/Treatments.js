@@ -46,7 +46,7 @@ const Treatments = () => {
   return (
     <div>
       <Card>
-        <Panel.Heading>
+        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
           Treatment List
           <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>

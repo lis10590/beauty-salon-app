@@ -47,7 +47,7 @@ const Clients = () => {
   return (
     <div>
       <Card>
-        <Panel.Heading className="p-heading">
+        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
           Clients
           <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>

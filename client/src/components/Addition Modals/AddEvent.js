@@ -70,7 +70,10 @@ const AddEvent = (props) => {
     <Modal active={props.isOpen}>
       <Modal.Background>
         <Modal.Card className="modal-card-body-calendar mt-6">
-          <Modal.CardHead className="modal-card-header">
+          <Modal.CardHead
+            style={{ backgroundColor: "#ffc0d3" }}
+            className="modal-card-header"
+          >
             <Modal.CardTitle>Add Appointment</Modal.CardTitle>
             <Delete className="delete" onClick={props.onClose}></Delete>
           </Modal.CardHead>

@@ -51,7 +51,7 @@ const AddClient = (props) => {
     <Modal active={props.isOpen}>
       <Modal.Background>
         <Modal.Card className="mt-6">
-          <Modal.CardHead>
+          <Modal.CardHead style={{ backgroundColor: "#ffc0d3" }}>
             <Modal.CardTitle>Add Client</Modal.CardTitle>
             <Delete className="delete" onClick={props.onClose}></Delete>
           </Modal.CardHead>

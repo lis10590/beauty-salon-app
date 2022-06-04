@@ -46,7 +46,9 @@ const ClientCard = () => {
   return (
     <>
       <Card>
-        <Panel.Heading>{client ? client.fullName : null}</Panel.Heading>
+        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
+          {client ? client.fullName : null}
+        </Panel.Heading>
         <Panel.Block>
           <Label className="mr-2 mb-0">Phone Number:</Label>
           {client ? client.phoneNumber : null}
