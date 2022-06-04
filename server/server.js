@@ -8,7 +8,7 @@ const path = require("path");
 require("./database");
 
 const PORT = process.env.PORT || 3001;
-const origin = "http://localhost:3000";
+const origin = process.env.ORIGIN || 3000;
 
 app.use(
   cors({
