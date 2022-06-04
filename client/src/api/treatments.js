@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.API_URL || "http://localhost:3001";
+const apiUrl = process.env.API_URL;
 
 //add new treatment
 export const addNewTreatment = async (treatment) => {

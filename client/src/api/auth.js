@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.API_URL || "http://localhost:3001";
+const apiUrl = process.env.API_URL;
 
 //register a new user
 export const postRegister = async (user) => {
