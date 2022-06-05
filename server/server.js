@@ -11,10 +11,10 @@ const PORT = process.env.PORT || 3001;
 const origin = process.env.ORIGIN || 3000;
 
 app.use(
-  cors(/*{
+  cors({
     credentials: true,
     origin,
-  }*/)
+  })
 );
 
 app.use(express.json());
