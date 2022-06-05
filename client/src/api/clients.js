@@ -5,6 +5,8 @@ if (process.env.NODE_ENV === "development") {
   apiUrl = "http://localhost:3001";
 }
 
+console.log(apiUrl);
+
 //addition of a new client from clients page
 export const addNewClient = async (client) => {
   try {
