@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "bulma": "^0.9.3",
-    "node-sass": "^7.0.1"
+    "node-sass": "^7.0.1",
+    "webpack": "^5.73.0"
   }
 }

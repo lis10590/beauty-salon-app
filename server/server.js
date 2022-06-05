@@ -7,8 +7,10 @@ const routes = require("./routes");
 const path = require("path");
 require("./database");
 
-const PORT = process.env.PORT || 3001;
-const origin = process.env.ORIGIN || 3000;
+const PORT = process.env.PORT || "";
+const origin = process.env.ORIGIN || "";
+
+console.log(origin);
 
 app.use(
   cors({

@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const apiUrl = process.env.API_URL || "http://localhost:3001";
+const apiUrl = "http://localhost:3001";
 
 export const changePassword = async (passwords) => {
   const res = await axios.put(`${apiUrl}/api/user/changepassword`, passwords);
   if (res.data) {
     return res.data;
   } else {
-    return { message: "error in getting presponse" };
+    return { message: "error in getting response" };
   }
 };
