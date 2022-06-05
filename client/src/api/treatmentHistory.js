@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let apiUrl = process.env.REACT_APP_API_URL;
+let apiUrl = "";
 if (process.env.NODE_ENV === "development") {
   apiUrl = "http://localhost:3001";
 }
