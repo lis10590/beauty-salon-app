@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const apiUrl = process.env.API_URL;
-console.log(apiUrl);
+let apiUrl = process.env.REACT_APP_API_URL;
+if (process.env.NODE_ENV === "development") {
+  apiUrl = "http://localhost:3001";
+}
 
 //addition of a new client from clients page
 export const addNewClient = async (client) => {
