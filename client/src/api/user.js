@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:3001";
+const apiUrl = process.env.API_URL;
 
 export const changePassword = async (passwords) => {
   const res = await axios.put(`${apiUrl}/api/user/changepassword`, passwords);
