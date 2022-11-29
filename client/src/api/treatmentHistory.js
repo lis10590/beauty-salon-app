@@ -3,8 +3,9 @@ import axios from "axios";
 let apiUrl = "";
 if (process.env.NODE_ENV === "development") {
   apiUrl = "http://localhost:3001";
+} else {
+  apiUrl = process.env.API_URL;
 }
-
 //add a treatment to client's treatment history
 export const addNewTreatmentHistory = async (treatmentHistory) => {
   try {
