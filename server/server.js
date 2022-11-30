@@ -8,7 +8,7 @@ const path = require("path");
 require("./database");
 
 const PORT = process.env.PORT || "";
-const origin = process.env.ORIGIN || "";
+const origin = "https://beauty-salon-client.onrender.com";
 
 console.log(origin);
 
