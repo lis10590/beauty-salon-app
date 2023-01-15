@@ -14,6 +14,7 @@ import AddButton from "../UI/AddButton";
 import DeleteButton from "../UI/DeleteButton";
 import DeleteModal from "../DeleteModal";
 import { Table, Panel } from "react-bulma-companion";
+import "../../styles/mystyles.scss";
 
 const Products = () => {
   const products = useSelector(selectAllProducts);
@@ -55,43 +56,44 @@ const Products = () => {
   return (
     <div>
       <Card>
-        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
+        <Panel.Heading style={{ backgroundColor: "#FFE1E1" }}>
           Product List
           <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>
-
-        <Table>
-          <TableHead>
-            {tableHeadings.map((heading) => {
-              return <Table.HeadCell key={heading}>{heading}</Table.HeadCell>;
-            })}
-          </TableHead>
-          <Table.Body>
-            {products.map((product) => {
-              return (
-                <Table.Row key={product._id}>
-                  <Table.DataCell>{product.productName}</Table.DataCell>
-                  <Table.DataCell>{product.manufacturer}</Table.DataCell>
-                  <Table.DataCell>{product.productType}</Table.DataCell>
-                  <Table.DataCell>{product.productGroup}</Table.DataCell>
-                  <Table.DataCell>{product.price}</Table.DataCell>
-                  <Table.DataCell>
-                    <DeleteButton onDelete={openDeleteModalHandler} />
-                    <DeleteModal
-                      onYesClick={() => {
-                        dispatch(deleteOneProduct(product._id));
-                        dispatch(modalActions.deleteModalClose());
-                      }}
-                      onNoClick={closeDeleteModalHandler}
-                      isOpen={deleteModal}
-                      onClose={closeDeleteModalHandler}
-                    />
-                  </Table.DataCell>
-                </Table.Row>
-              );
-            })}
-          </Table.Body>
-        </Table>
+        <Panel.Block>
+          <Table className="table is-narrow">
+            <TableHead>
+              {tableHeadings.map((heading) => {
+                return <Table.HeadCell key={heading}>{heading}</Table.HeadCell>;
+              })}
+            </TableHead>
+            <Table.Body>
+              {products.map((product) => {
+                return (
+                  <Table.Row key={product._id}>
+                    <Table.DataCell>{product.productName}</Table.DataCell>
+                    <Table.DataCell>{product.manufacturer}</Table.DataCell>
+                    <Table.DataCell>{product.productType}</Table.DataCell>
+                    <Table.DataCell>{product.productGroup}</Table.DataCell>
+                    <Table.DataCell>{product.price}</Table.DataCell>
+                    <Table.DataCell>
+                      <DeleteButton onDelete={openDeleteModalHandler} />
+                      <DeleteModal
+                        onYesClick={() => {
+                          dispatch(deleteOneProduct(product._id));
+                          dispatch(modalActions.deleteModalClose());
+                        }}
+                        onNoClick={closeDeleteModalHandler}
+                        isOpen={deleteModal}
+                        onClose={closeDeleteModalHandler}
+                      />
+                    </Table.DataCell>
+                  </Table.Row>
+                );
+              })}
+            </Table.Body>
+          </Table>
+        </Panel.Block>
       </Card>
       <AddProduct isOpen={addModal} onClose={closeAddModalHandler} />
     </div>

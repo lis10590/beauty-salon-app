@@ -45,7 +45,7 @@ const AddTreatment = (props) => {
       <Modal.Background>
         <Modal.Card className="mt-6">
           <Modal.CardHead
-            style={{ backgroundColor: "#ffc0d3" }}
+            style={{ backgroundColor: "#FFB9B9" }}
             className="modal-card-head"
           >
             <Modal.CardTitle>Add Treatment</Modal.CardTitle>

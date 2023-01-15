@@ -47,14 +47,14 @@ const Clients = () => {
   return (
     <div>
       <Card>
-        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
+        <Panel.Heading style={{ backgroundColor: "#FFE1E1" }}>
           Clients
           <AddButton onAddButton={openAddModalHandler} />
         </Panel.Heading>
         {clients.map((client) => {
           clientId = client._id;
           return (
-            <Panel.Block>
+            <Panel.Block style={{ backgroundColor: "white" }}>
               <Control
                 key={client._id}
                 component={Link}

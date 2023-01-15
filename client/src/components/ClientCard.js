@@ -46,14 +46,14 @@ const ClientCard = () => {
   return (
     <>
       <Card>
-        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
+        <Panel.Heading style={{ backgroundColor: "#FFE1E1" }}>
           {client ? client.fullName : null}
         </Panel.Heading>
-        <Panel.Block>
+        <Panel.Block style={{ backgroundColor: "white" }}>
           <Label className="mr-2 mb-0">Phone Number:</Label>
           {client ? client.phoneNumber : null}
         </Panel.Block>
-        <Panel.Block>
+        <Panel.Block style={{ backgroundColor: "white" }}>
           <Label className="mr-2 mb-0">Treatment History:</Label>
         </Panel.Block>
         {treatmentHistories
@@ -69,7 +69,7 @@ const ClientCard = () => {
             })
           : null}
 
-        <Panel.Block>
+        <Panel.Block style={{ backgroundColor: "white" }}>
           <div>
             <AddButton
               onAddButton={openAddModalHandler}
@@ -78,7 +78,7 @@ const ClientCard = () => {
           </div>
           <Label className="mr-2 mb-0">Products Purchased:</Label>
         </Panel.Block>
-        <ul>
+        <ul style={{ backgroundColor: "white" }}>
           {client
             ? client.productsPurchased.map((product) => {
                 return <li>{product}</li>;

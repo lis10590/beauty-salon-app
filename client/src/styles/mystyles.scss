@@ -1,11 +1,11 @@
 body,
 html {
-  background-image: url("../assets/background2.jpg");
-  background-size: cover;
+  background-image: linear-gradient(to right,#FFE3E1,#FFD1D1,#FF9494);
+  
 }
 
 .modal-card-head {
-  background-color: #f14668;
+  background-color: #FFF5E4;
 }
 
 .modal-card-body {
@@ -14,6 +14,7 @@ html {
 
 .modal-card-body-calendar {
   height: 40rem;
+  
 }
 
 .delete-button:hover {
@@ -27,5 +28,32 @@ html {
 }
 
 #app-navbar {
-  background-color: #ffc0d3;
+  background-color: #FFB9B9;
 }
+
+
+  @media (min-width:769px){
+    .calendar {
+      width: 900px;
+    }
+
+  }
+
+  @media (min-width: 481px) and (max-width: 768px){
+    .calendar {
+      width: 600px;
+      
+    }
+  }
+
+
+  @media (max-width: 480px) {
+    .calendar {
+      width: 300px;
+    }
+   table{
+    font-size: small;
+   }
+  }
+
+

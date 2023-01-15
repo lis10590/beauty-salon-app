@@ -20,23 +20,23 @@ const MyAccount = () => {
   return (
     <>
       <Card>
-        <Panel.Heading style={{ backgroundColor: "#ffc0d3" }}>
+        <Panel.Heading style={{ backgroundColor: "#FFE1E1" }}>
           Personal Info
         </Panel.Heading>
 
-        <Panel.Block>
+        <Panel.Block style={{ backgroundColor: "white" }}>
           <Label className="mr-2 mb-0"> First Name: </Label>
           {user.firstName}
         </Panel.Block>
-        <Panel.Block>
+        <Panel.Block style={{ backgroundColor: "white" }}>
           <Label className="mr-2 mb-0"> Last Name: </Label>
           {user.lastName}
         </Panel.Block>
-        <Panel.Block>
+        <Panel.Block style={{ backgroundColor: "white" }}>
           <Label className="mr-2 mb-0"> E-mail Adress: </Label>
           {user.email}
         </Panel.Block>
-        <Panel.Block>
+        <Panel.Block style={{ backgroundColor: "white" }}>
           <Label className="mr-2"> Password: </Label>
           ******
           <Button

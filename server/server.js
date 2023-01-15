@@ -8,14 +8,12 @@ const path = require("path");
 require("./database");
 
 const PORT = process.env.PORT || "";
-const origin = "https://beauty-salon-client.onrender.com";
-
-console.log(origin);
+const ORIGIN = process.env.ORIGIN;
 
 app.use(
   cors({
     credentials: true,
-    origin,
+    ORIGIN,
   })
 );
 

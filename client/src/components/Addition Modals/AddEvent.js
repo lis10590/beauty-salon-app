@@ -71,7 +71,7 @@ const AddEvent = (props) => {
       <Modal.Background>
         <Modal.Card className="modal-card-body-calendar mt-6">
           <Modal.CardHead
-            style={{ backgroundColor: "#ffc0d3" }}
+            style={{ backgroundColor: "#FFB9B9" }}
             className="modal-card-header"
           >
             <Modal.CardTitle>Add Appointment</Modal.CardTitle>

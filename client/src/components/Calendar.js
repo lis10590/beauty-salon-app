@@ -10,6 +10,7 @@ import startOfWeek from "date-fns/startOfWeek";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import AddEvent from "./Addition Modals/AddEvent";
 import { Button, Buttons } from "react-bulma-companion";
+import "../styles/mystyles.scss";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -64,23 +65,25 @@ const BigCalendar = () => {
           Add Appointment
         </Button>
       </Buttons>
-
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{
-          width: 900,
-          height: 500,
-          marginTop: "50px",
-          marginLeft: 190,
-        }}
-        selectable
-        onSelectEvent={(event) => {
-          saveChosenEvent(event);
-        }}
-      />
+      <div className="is-flex is-justify-content-center">
+        <Calendar
+          className="calendar"
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{
+            // width: 900,
+            height: 500,
+            marginTop: "50px",
+            backgroundColor: "white",
+          }}
+          selectable
+          onSelectEvent={(event) => {
+            saveChosenEvent(event);
+          }}
+        />
+      </div>
       <AddEvent isOpen={addModal} onClose={closeAddModalHandler} />
 
       <DeleteModal
