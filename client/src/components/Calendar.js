@@ -73,10 +73,9 @@ const BigCalendar = () => {
           startAccessor="start"
           endAccessor="end"
           style={{
-            // width: 900,
             height: 500,
-            marginTop: "50px",
             backgroundColor: "white",
+            marginBottom: "2rem",
           }}
           selectable
           onSelectEvent={(event) => {

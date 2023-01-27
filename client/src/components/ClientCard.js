@@ -62,7 +62,7 @@ const ClientCard = () => {
                 "en-US"
               );
               return (
-                <ul>
+                <ul style={{ backgroundColor: "white" }}>
                   <li>{treatment.treatmentName + " on " + treatmentDate}</li>
                 </ul>
               );
