@@ -4,7 +4,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 console.log(apiUrl);
 
-//addition of a new client from clients page
+//addition of a new client from clients page :
 export const addNewClient = async (client) => {
   try {
     const res = await axios.post(`${apiUrl}/api/clients/newClient`, client);
