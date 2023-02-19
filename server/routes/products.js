@@ -42,7 +42,7 @@ router.get("/getProducts", (req, res) => {
     }
 
     res.send(
-      // message: "Products are rendered successfully",
+      // message: "Products are rendered successfully".,
       productsList
     );
   });
