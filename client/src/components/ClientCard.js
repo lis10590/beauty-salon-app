@@ -1,10 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllClients, selectAllClients } from "../store/clients";
-import {
-  getAllTreatmentHistoriesByName,
-  selectAllTreatmentHistories,
-} from "../store/treatmentHistory";
 import Card from "./UI/Card";
 import { modalActions } from "../store/modal";
 import AddButton from "./UI/AddButton";
@@ -17,23 +13,13 @@ const ClientCard = () => {
   let { clientId } = useParams();
   const dispatch = useDispatch();
   const clients = useSelector(selectAllClients);
-  const treatmentHistories = useSelector(selectAllTreatmentHistories);
   const addModal = useSelector((state) => state.modal.addModalOpen);
 
   let [client] = clients.filter((client) => clientId === client._id);
 
   useEffect(() => {
     dispatch(getAllClients());
-    if (client) {
-      dispatch(getAllTreatmentHistoriesByName(client.fullName));
-    }
-  }, [dispatch, client]);
-
-  useEffect(() => {
-    if (client) {
-      dispatch(getAllTreatmentHistoriesByName(client.fullName));
-    }
-  }, [dispatch, client]);
+  }, [dispatch]);
 
   const closeAddModalHandler = () => {
     dispatch(modalActions.addModalClose());
@@ -56,8 +42,8 @@ const ClientCard = () => {
         <Panel.Block style={{ backgroundColor: "white" }}>
           <Label className="mr-2 mb-0">Treatment History:</Label>
         </Panel.Block>
-        {treatmentHistories
-          ? treatmentHistories.map((treatment) => {
+        {client.treatmentHistory
+          ? client.treatmentHistory.map((treatment) => {
               const treatmentDate = new Date(treatment.date).toLocaleDateString(
                 "en-US"
               );
@@ -81,7 +67,14 @@ const ClientCard = () => {
         <ul style={{ backgroundColor: "white" }}>
           {client
             ? client.productsPurchased.map((product) => {
-                return <li>{product}</li>;
+                const purchaseDate = new Date(product.date).toLocaleDateString(
+                  "en-US"
+                );
+                return (
+                  <li>
+                    {product.productName} on {purchaseDate}
+                  </li>
+                );
               })
             : null}
         </ul>

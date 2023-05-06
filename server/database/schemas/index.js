@@ -4,6 +4,7 @@ const Client = require("./Client");
 const Product = require("./Product");
 const Treatment = require("./Treatment");
 const TreatmentHistory = require("./TreatmentHistory");
+const PurchasedProduct = require("./PurchasedProduct");
 
 module.exports = {
   User,
@@ -12,4 +13,5 @@ module.exports = {
   Product,
   Treatment,
   TreatmentHistory,
+  PurchasedProduct,
 };

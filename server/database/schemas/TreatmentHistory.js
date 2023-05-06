@@ -2,15 +2,17 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const TreatmentHistorySchema = new Schema({
-  fullName: { type: String },
-  phoneNumber: { type: String },
+  treatmentId: { type: String },
   treatmentName: { type: String },
-  date: { type: Date },
+  count: { type: Number },
+  revenue: { type: Number },
 });
 
 const TreatmentHistory = mongoose.model(
   "TreatmentsHistory",
   TreatmentHistorySchema
 );
+
+module.exports = TreatmentHistory;
 
 module.exports = TreatmentHistory;
